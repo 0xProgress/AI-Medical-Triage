@@ -21,6 +21,8 @@ app.add_middleware(
         "http://127.0.0.1:4321",
         "http://127.0.0.1:5173",
         "http://0.0.0.0:8000",
+        "https://ai-medical-triage-dab8.onrender.com",
+        "https://ai-medical-triage.onrender.com",
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
