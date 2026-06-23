@@ -1,0 +1,123 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+backend/data/symcat.db
+backend/data/symcat_simplified.json
+backend/data/reports/
+backend/data/raw/
+
+# Models
+backend/models/cache/
+*.safetensors
+*.bin
+*.gguf
+*.pt
+*.pth
+*.onnx
+*.pb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Project specific
+*.pdf
+*.html
+*.xml
+backend/data/reports/*.pdf
+backend/data/reports/*.json
+
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Node (if frontend in same repo)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+*.patch
+
+# Hugging Face cache
+~/.cache/huggingface/
+.cache/huggingface/
+
+# Backup files
+*.backup
+*.bak
+*.old
+*.orig
+*.rej
+*.patch
+
+# Secrets
+*.pem
+*.key
+*.crt
+*.p12
+*.secret
+*.secrets
+credentials.json
+oauth2.json
+
+# Reports
+*.pdf
+*.html
+reports/
+output/
