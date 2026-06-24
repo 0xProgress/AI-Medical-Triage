@@ -1,7 +1,8 @@
 // src/lib/api.ts
 import { ChatResponse } from '../types';
 
-const API_BASE = import.meta.env.VITE_API_URL || '/api/v1';
+// const API_BASE = import.meta.env.VITE_API_URL || '/api/v1';
+const API_BASE = 'https://ai-medical-triage-bk.onrender.com/api/v1';
 
 export async function sendMessage(
   sessionId: string | null,
