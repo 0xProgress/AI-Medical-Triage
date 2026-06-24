@@ -1,0 +1,6 @@
+{
+  "name": "AI Medical Triage System",
+  "description": "An interactive, high-precision clinical triage assistant powered by Gemini. Prioritizes symptoms, calculates match scores, and generates clinical summaries.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
