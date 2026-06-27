@@ -134,45 +134,58 @@ class TriageEngine:
         current_symptoms = set(symptoms)
         
         differentiating_symptoms = []
+        
         for disease_name in top_disease_names:
-            disease_symptoms = get_disease_details(disease_name)
-            if disease_symptoms and disease_symptoms.get('symptoms'):
-                for ds in disease_symptoms['symptoms']:
-                    ds_lower = ds.strip().lower()
-                    if ds_lower not in current_symptoms and ds_lower in all_symptoms_db:
-                        differentiating_symptoms.append(ds_lower)
+            try:
+                disease_symptoms = get_disease_details(disease_name)
+                if disease_symptoms and disease_symptoms.get('symptoms'):
+                    for ds in disease_symptoms['symptoms']:
+                        ds_lower = ds.strip().lower()
+                        if ds_lower and ds_lower not in current_symptoms and ds_lower in all_symptoms_db:
+                            differentiating_symptoms.append(ds_lower)
+            except Exception:
+                continue
         
         for symptom in symptoms[:3]:
-            related = find_related_symptoms(symptom, limit=5)
-            for rel_name, rel_score in related:
-                if rel_name not in current_symptoms and rel_name not in [d[0] for d in differentiating_symptoms]:
-                    differentiating_symptoms.append(rel_name)
+            try:
+                related = find_related_symptoms(symptom, limit=5)
+                for item in related:
+                    if isinstance(item, (tuple, list)) and len(item) >= 1:
+                        rel_name = str(item[0]).strip().lower()
+                        if rel_name and rel_name not in current_symptoms and rel_name not in differentiating_symptoms:
+                            differentiating_symptoms.append(rel_name)
+            except Exception:
+                continue
         
-        unique_diff = list(set(differentiating_symptoms))[:5]
+        seen = set()
+        unique_diff = []
+        for s in differentiating_symptoms:
+            if s not in seen:
+                seen.add(s)
+                unique_diff.append(s)
+        unique_diff = unique_diff[:5]
         
         if unique_diff and len(unique_diff) >= 2:
             symptom_options = unique_diff[:3]
-            question = f"To help narrow things down, are you also experiencing any of these: {', '.join(symptom_options)}?"
-            return question
+            return f"To help narrow things down, are you also experiencing any of these: {', '.join(symptom_options)}?"
         
         if unique_diff:
-            question = f"One more thing — are you experiencing {unique_diff[0]}?"
-            return question
+            return f"One more thing — are you experiencing {unique_diff[0]}?"
         
         try:
             condition_dicts = []
-            disease_details = get_diseases_batch(top_disease_names)
+            disease_details_batch = get_diseases_batch(top_disease_names)
             for match in matches[:3]:
                 name, count, pct = match
-                detail = next((d for d in disease_details if d['name'] == name), None)
+                detail = next((d for d in disease_details_batch if d['name'] == name), None)
                 condition_dicts.append({
                     'name': name,
                     'match_percentage': float(pct)
                 })
             
             llm_question = qwen_client.generate_follow_up_sync(symptoms, condition_dicts)
-            if llm_question and len(llm_question) > 10:
-                return llm_question
+            if llm_question and len(llm_question.strip()) > 10:
+                return llm_question.strip()
         except Exception:
             pass
         
