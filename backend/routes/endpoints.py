@@ -7,6 +7,8 @@ from backend.services.report_generator import report_generator
 from backend.config import config
 from datetime import datetime
 import traceback
+import base64
+from fastapi.responses import JSONResponse
 
 router = APIRouter()
 
@@ -37,7 +39,7 @@ async def chat(request: ChatRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.post("/report", response_model=ReportResponse)
+@router.post("/report")
 async def generate_report(request: ReportRequest, background_tasks: BackgroundTasks):
     try:
         triage_data = await triage_engine.get_report_data(request.session_id)
@@ -49,27 +51,29 @@ async def generate_report(request: ReportRequest, background_tasks: BackgroundTa
             triage_data['summary'] = "No clinical summary available. Please consult a healthcare provider."
         
         pdf_path = report_generator.generate_report(request.session_id, triage_data)
-        json_path = report_generator.generate_report_json(request.session_id, triage_data)
         
+        # Read PDF into memory
+        with open(pdf_path, "rb") as f:
+            pdf_bytes = f.read()
+        
+        pdf_b64 = base64.b64encode(pdf_bytes).decode("utf-8")
+        
+        # Schedule cleanup
         def cleanup():
             import os
             try:
                 if os.path.exists(pdf_path):
                     os.remove(pdf_path)
-                if os.path.exists(json_path):
-                    os.remove(json_path)
             except:
                 pass
         
         background_tasks.add_task(cleanup)
         
-        filename = Path(pdf_path).name
-        
-        return ReportResponse(
-            report_url=f"/downloads/{filename}",
-            download_url=f"/downloads/{filename}",
-            generated_at=datetime.now()
-        )
+        return JSONResponse({
+            "report_url": f"data:application/pdf;base64,{pdf_b64}",
+            "download_url": f"data:application/pdf;base64,{pdf_b64}",
+            "generated_at": datetime.now().isoformat()
+        })
     except HTTPException:
         raise
     except Exception as e:
