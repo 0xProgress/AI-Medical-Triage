@@ -77,6 +77,63 @@ class QwenClient:
         
         response = await self.generate(messages)
         return response.strip()
+
+    def _generate_smart_follow_up(self, symptoms: List[str], matches: List) -> str:
+        """
+        Generate a follow-up question using database-driven symptom differentiation
+        instead of always calling the LLM. Falls back to LLM only when needed.
+        """
+        if not symptoms or not matches:
+            return "Could you describe your symptoms in more detail? Please mention any pain, discomfort, or changes you're experiencing."
+        
+        top_disease_names = [m[0] for m in matches[:3]]
+        all_symptoms_db = set(get_all_symptoms())
+        current_symptoms = set(symptoms)
+        
+        differentiating_symptoms = []
+        for disease_name in top_disease_names:
+            disease_symptoms = get_disease_details(disease_name)
+            if disease_symptoms and disease_symptoms.get('symptoms'):
+                for ds in disease_symptoms['symptoms']:
+                    ds_lower = ds.strip().lower()
+                    if ds_lower not in current_symptoms and ds_lower in all_symptoms_db:
+                        differentiating_symptoms.append(ds_lower)
+        
+        for symptom in symptoms[:3]:
+            related = find_related_symptoms(symptom, limit=5)
+            for rel_name, rel_score in related:
+                if rel_name not in current_symptoms and rel_name not in differentiating_symptoms:
+                    differentiating_symptoms.append(rel_name)
+        
+        unique_diff = list(dict.fromkeys(differentiating_symptoms))[:5]
+        
+        if unique_diff and len(unique_diff) >= 2:
+            symptom_options = unique_diff[:3]
+            question = f"To help narrow things down, are you also experiencing any of these: {', '.join(symptom_options)}?"
+            return question
+        
+        if unique_diff:
+            question = f"One more thing — are you experiencing {unique_diff[0]}?"
+            return question
+        
+        try:
+            condition_dicts = []
+            disease_details = get_diseases_batch(top_disease_names)
+            for match in matches[:3]:
+                name, count, pct = match
+                detail = next((d for d in disease_details if d['name'] == name), None)
+                condition_dicts.append({
+                    'name': name,
+                    'match_percentage': float(pct)
+                })
+            
+            llm_question = qwen_client.generate_follow_up_sync(symptoms, condition_dicts)
+            if llm_question and len(llm_question) > 10:
+                return llm_question
+        except Exception:
+            pass
+        
+        return "Could you tell me more about your symptoms? Any other changes you've noticed?"
     
     async def rank_conditions(self, symptoms: List[str], matches: List[Dict]) -> List[Dict]:
         if not matches:

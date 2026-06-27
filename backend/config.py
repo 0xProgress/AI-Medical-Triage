@@ -37,7 +37,7 @@ class Config:
     TEMPERATURE = float(os.getenv("TEMPERATURE", "0.7"))
     
     SESSION_TIMEOUT = int(os.getenv("SESSION_TIMEOUT", "3600"))
-    MAX_TURNS = int(os.getenv("MAX_TURNS", "20"))
+    MAX_TURNS = int(os.getenv("MAX_TURNS", "10"))
     
     ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:3000").split(",")
 
