@@ -13,7 +13,9 @@ from backend.database.queries import (
     get_disease_details,
     get_diseases_batch,
     check_red_flags,
-    get_urgency_level
+    get_urgency_level,
+    find_related_symptoms,
+    get_all_symptoms
 )
 from backend.config import config
 
@@ -47,6 +49,134 @@ class TriageEngine:
     def delete_session(self, session_id: str):
         if session_id in self.sessions:
             del self.sessions[session_id]
+    
+    def _should_conclude(self, session: SessionData, matches: List, current_top: Optional[str]) -> tuple[bool, str]:
+        """
+        Determine if the triage should conclude based on multiple factors.
+        Returns (should_conclude, reason_string).
+        """
+        if not matches:
+            return False, ""
+        
+        top_name, top_count, top_percentage = matches[0]
+        
+        if not hasattr(session, '_top_condition_history'):
+            session._top_condition_history = []
+        
+        session._top_condition_history.append(top_name)
+        
+        if len(session._top_condition_history) > 3:
+            session._top_condition_history.pop(0)
+        
+        symptom_count = len(session.extracted_symptoms)
+        threshold = max(35, 55 - (session.turn_count * 3))
+        
+        if top_percentage >= threshold and symptom_count >= 3:
+            return True, f"strong_match_{top_percentage:.0f}pct"
+        
+        if len(session._top_condition_history) >= 2:
+            last_two = session._top_condition_history[-2:]
+            if last_two[0] == last_two[1] and top_percentage >= 25:
+                return True, "stable_diagnosis"
+        
+        if top_percentage >= 55:
+            return True, f"high_confidence_{top_percentage:.0f}pct"
+        
+        if session.turn_count >= self.max_turns - 2:
+            return True, "nearing_max_turns"
+        
+        if symptom_count >= 6 and session.turn_count >= 5:
+            return True, "sufficient_data"
+        
+        return False, ""
+    
+    def _build_condition_matches(self, matches: List) -> List[ConditionMatch]:
+        """Build ConditionMatch objects from database query results."""
+        if not matches:
+            return []
+        
+        disease_names = [m[0] for m in matches[:5]]
+        disease_details = get_diseases_batch(disease_names)
+        
+        condition_matches = []
+        for match in matches[:5]:
+            name, match_count, match_percentage = match
+            detail = next((d for d in disease_details if d['name'] == name), None)
+            
+            if detail:
+                urgency = get_urgency_level(name)
+                condition_matches.append(ConditionMatch(
+                    name=name,
+                    description=detail.get('description', ''),
+                    match_score=float(match_count) * 2.0,
+                    symptom_count=match_count,
+                    match_percentage=float(match_percentage),
+                    urgency=urgency,
+                    precautions=detail.get('precautions', []),
+                    medications=detail.get('medications', []),
+                    diet=detail.get('diet', []),
+                    workouts=detail.get('workouts', []),
+                    red_flags=detail.get('red_flags', [])
+                ))
+        
+        return condition_matches
+    
+    def _generate_smart_follow_up(self, symptoms: List[str], matches: List) -> str:
+        """
+        Generate a follow-up question using database-driven symptom differentiation
+        instead of always calling the LLM. Falls back to LLM only when needed.
+        """
+        if not symptoms or not matches:
+            return "Could you describe your symptoms in more detail? Please mention any pain, discomfort, or changes you're experiencing."
+        
+        top_disease_names = [m[0] for m in matches[:3]]
+        all_symptoms_db = set(get_all_symptoms())
+        current_symptoms = set(symptoms)
+        
+        differentiating_symptoms = []
+        for disease_name in top_disease_names:
+            disease_symptoms = get_disease_details(disease_name)
+            if disease_symptoms and disease_symptoms.get('symptoms'):
+                for ds in disease_symptoms['symptoms']:
+                    ds_lower = ds.strip().lower()
+                    if ds_lower not in current_symptoms and ds_lower in all_symptoms_db:
+                        differentiating_symptoms.append(ds_lower)
+        
+        for symptom in symptoms[:3]:
+            related = find_related_symptoms(symptom, limit=5)
+            for rel_name, rel_score in related:
+                if rel_name not in current_symptoms and rel_name not in [d[0] for d in differentiating_symptoms]:
+                    differentiating_symptoms.append(rel_name)
+        
+        unique_diff = list(set(differentiating_symptoms))[:5]
+        
+        if unique_diff and len(unique_diff) >= 2:
+            symptom_options = unique_diff[:3]
+            question = f"To help narrow things down, are you also experiencing any of these: {', '.join(symptom_options)}?"
+            return question
+        
+        if unique_diff:
+            question = f"One more thing — are you experiencing {unique_diff[0]}?"
+            return question
+        
+        try:
+            condition_dicts = []
+            disease_details = get_diseases_batch(top_disease_names)
+            for match in matches[:3]:
+                name, count, pct = match
+                detail = next((d for d in disease_details if d['name'] == name), None)
+                condition_dicts.append({
+                    'name': name,
+                    'match_percentage': float(pct)
+                })
+            
+            llm_question = qwen_client.generate_follow_up_sync(symptoms, condition_dicts)
+            if llm_question and len(llm_question) > 10:
+                return llm_question
+        except Exception:
+            pass
+        
+        return "Could you tell me more about your symptoms? Any other changes you've noticed?"
     
     async def process_message(
         self, 
@@ -85,16 +215,7 @@ class TriageEngine:
             session = self.get_session(session_id)
         
         if session.turn_count >= self.max_turns:
-            return {
-                "session_id": session_id,
-                "message": "You have reached the maximum number of questions. Please generate your report.",
-                "conditions": [],
-                "follow_up_question": None,
-                "red_flags": [],
-                "is_complete": True,
-                "turn": session.turn_count,
-                "max_turns_reached": True
-            }
+            return self._build_conclusion_response(session_id, session, force=True)
         
         session.conversation.append(Message(role="user", content=message))
         session.turn_count += 1
@@ -110,108 +231,80 @@ class TriageEngine:
         matches = find_diseases_by_symptoms(all_symptoms, limit=10)
         
         red_flags = check_red_flags(all_symptoms)
+        
+        condition_matches = self._build_condition_matches(matches)
+        
         if red_flags:
             flags_text = ", ".join(red_flags)
+            warning_message = (
+                f"⚠️ **Medical Advisory:** I noticed you mentioned {flags_text}. "
+                "These symptoms should be discussed with a doctor. If you're experiencing "
+                "severe pain, difficulty breathing, or confusion, please seek emergency care immediately."
+            )
             
-            warning_message = f"⚠️ **Medical Advisory:** I noticed you mentioned {flags_text}. These symptoms should be discussed with a doctor. If you're experiencing severe pain, difficulty breathing, or confusion, please seek emergency care immediately."
-            
-            self.update_session(session_id, is_complete=False)
-            
-            condition_matches = []
-            if matches:
-                disease_names = [m[0] for m in matches[:5]]
-                disease_details = get_diseases_batch(disease_names)
-                
-                for match in matches[:5]:
-                    name, match_count, match_percentage = match
-                    detail = next((d for d in disease_details if d['name'] == name), None)
-                    
-                    if detail:
-                        urgency = get_urgency_level(name)
-                        condition_matches.append(ConditionMatch(
-                            name=name,
-                            description=detail.get('description', ''),
-                            match_score=float(match_count) * 2.0,
-                            symptom_count=match_count,
-                            match_percentage=float(match_percentage),
-                            urgency=urgency,
-                            precautions=detail.get('precautions', []),
-                            medications=detail.get('medications', []),
-                            diet=detail.get('diet', []),
-                            workouts=detail.get('workouts', []),
-                            red_flags=detail.get('red_flags', [])
-                        ))
+            condition_dicts = [c.dict() for c in condition_matches[:5]]
             
             if condition_matches:
                 top_list = "\n".join([f"- {c.name} ({c.match_percentage}% match)" for c in condition_matches[:3]])
-                follow_up = f"{warning_message}\n\nBased on your symptoms, I'm considering these conditions:\n{top_list}\n\n{await qwen_client.generate_follow_up(all_symptoms, [c.dict() for c in condition_matches[:5]])}"
-            else:
-                follow_up = f"{warning_message}\n\nCould you describe your symptoms in more detail? Please mention any pain, discomfort, or changes you're experiencing."
-            
-            return {
-                "session_id": session_id,
-                "message": follow_up,
-                "conditions": [c.dict() for c in condition_matches[:5]],
-                "follow_up_question": follow_up,
-                "red_flags": red_flags,
-                "is_complete": False,
-                "turn": session.turn_count,
-                "max_turns_reached": False
-            }
-        
-        condition_matches = []
-        if matches:
-            disease_names = [m[0] for m in matches[:5]]
-            disease_details = get_diseases_batch(disease_names)
-            
-            for match in matches[:5]:
-                name, match_count, match_percentage = match
-                detail = next((d for d in disease_details if d['name'] == name), None)
                 
-                if detail:
-                    urgency = get_urgency_level(name)
-                    condition_matches.append(ConditionMatch(
-                        name=name,
-                        description=detail.get('description', ''),
-                        match_score=float(match_count) * 2.0,
-                        symptom_count=match_count,
-                        match_percentage=float(match_percentage),
-                        urgency=urgency,
-                        precautions=detail.get('precautions', []),
-                        medications=detail.get('medications', []),
-                        diet=detail.get('diet', []),
-                        workouts=detail.get('workouts', []),
-                        red_flags=detail.get('red_flags', [])
-                    ))
+                should_conclude, reason = self._should_conclude(session, matches, condition_matches[0].name if condition_matches else None)
+                
+                if should_conclude:
+                    session.is_complete = True
+                    self.update_session(session_id, is_complete=True)
+                    return {
+                        "session_id": session_id,
+                        "message": f"{warning_message}\n\nBased on your symptoms, I'm considering these conditions:\n{top_list}\n\nI recommend consulting a healthcare provider for proper evaluation. Would you like to generate a report?",
+                        "conditions": condition_dicts,
+                        "follow_up_question": None,
+                        "red_flags": red_flags,
+                        "is_complete": True,
+                        "turn": session.turn_count,
+                        "max_turns_reached": False
+                    }
+                else:
+                    follow_up = self._generate_smart_follow_up(all_symptoms, matches)
+                    return {
+                        "session_id": session_id,
+                        "message": f"{warning_message}\n\nBased on your symptoms, I'm considering:\n{top_list}\n\n{follow_up}",
+                        "conditions": condition_dicts,
+                        "follow_up_question": follow_up,
+                        "red_flags": red_flags,
+                        "is_complete": False,
+                        "turn": session.turn_count,
+                        "max_turns_reached": False
+                    }
+            else:
+                return {
+                    "session_id": session_id,
+                    "message": f"{warning_message}\n\nCould you describe your symptoms in more detail?",
+                    "conditions": [],
+                    "follow_up_question": "Could you describe your symptoms in more detail?",
+                    "red_flags": red_flags,
+                    "is_complete": False,
+                    "turn": session.turn_count,
+                    "max_turns_reached": False
+                }
         
-        if condition_matches and condition_matches[0].match_percentage >= 50:
-            session.is_complete = True
-            self.update_session(session_id, is_complete=True)
-            
-            top_condition = condition_matches[0]
-            
-            return {
-                "session_id": session_id,
-                "message": f"Based on your symptoms, the most likely condition is {top_condition.name} with {top_condition.match_percentage}% confidence. Would you like to generate a report?",
-                "conditions": [c.dict() for c in condition_matches[:5]],
-                "follow_up_question": None,
-                "red_flags": red_flags,
-                "is_complete": True,
-                "turn": session.turn_count,
-                "max_turns_reached": False
-            }
+
+        should_conclude, reason = self._should_conclude(session, matches, condition_matches[0].name if condition_matches else None)
+        
+        if should_conclude and condition_matches:
+            return self._build_conclusion_response(session_id, session)
         
         if condition_matches:
             top_list = "\n".join([f"- {c.name} ({c.match_percentage}% match)" for c in condition_matches[:3]])
-            follow_up = f"Based on your symptoms, I'm considering these conditions:\n{top_list}\n\n{await qwen_client.generate_follow_up(all_symptoms, [c.dict() for c in condition_matches[:5]])}"
+            follow_up = self._generate_smart_follow_up(all_symptoms, matches)
+            message_text = f"Based on your symptoms, I'm considering these conditions:\n{top_list}\n\n{follow_up}"
         else:
             follow_up = "Could you describe your symptoms in more detail? Please mention any pain, discomfort, or changes you're experiencing."
+            message_text = follow_up
         
         self.update_session(session_id, is_complete=False)
         
         return {
             "session_id": session_id,
-            "message": follow_up,
+            "message": message_text,
             "conditions": [c.dict() for c in condition_matches[:5]],
             "follow_up_question": follow_up,
             "red_flags": red_flags,
@@ -219,6 +312,45 @@ class TriageEngine:
             "turn": session.turn_count,
             "max_turns_reached": False
         }
+    
+    def _build_conclusion_response(self, session_id: str, session: SessionData, force: bool = False) -> Dict[str, Any]:
+        """Build the final conclusion response."""
+        all_symptoms = session.extracted_symptoms
+        matches = find_diseases_by_symptoms(all_symptoms, limit=5)
+        condition_matches = self._build_condition_matches(matches)
+        red_flags = check_red_flags(all_symptoms)
+        
+        session.is_complete = True
+        self.update_session(session_id, is_complete=True)
+        
+        if condition_matches:
+            top = condition_matches[0]
+            if force:
+                prefix = "I've gathered enough information. "
+            else:
+                prefix = ""
+            
+            return {
+                "session_id": session_id,
+                "message": f"{prefix}Based on your symptoms, the most likely condition is **{top.name}** with {top.match_percentage}% confidence. Would you like to generate a report?",
+                "conditions": [c.dict() for c in condition_matches[:5]],
+                "follow_up_question": None,
+                "red_flags": red_flags,
+                "is_complete": True,
+                "turn": session.turn_count,
+                "max_turns_reached": force
+            }
+        else:
+            return {
+                "session_id": session_id,
+                "message": "I wasn't able to identify a specific condition based on the symptoms provided. I recommend consulting a healthcare provider for a proper evaluation. Would you like to generate a report with what we've discussed?",
+                "conditions": [],
+                "follow_up_question": None,
+                "red_flags": red_flags,
+                "is_complete": True,
+                "turn": session.turn_count,
+                "max_turns_reached": force
+            }
     
     async def get_report_data(self, session_id: str) -> Optional[Dict]:
         session = self.get_session(session_id)
@@ -228,31 +360,7 @@ class TriageEngine:
         all_symptoms = session.extracted_symptoms
         matches = find_diseases_by_symptoms(all_symptoms, limit=5)
         
-        condition_matches = []
-        if matches:
-            disease_names = [m[0] for m in matches[:5]]
-            disease_details = get_diseases_batch(disease_names)
-            
-            for i, match in enumerate(matches[:5]):
-                name, match_count, match_percentage = match
-                detail = next((d for d in disease_details if d['name'] == name), None)
-                
-                if detail:
-                    urgency = get_urgency_level(name)
-                    condition_matches.append(ConditionMatch(
-                        name=name,
-                        description=detail.get('description', ''),
-                        match_score=float(match_count) * 2.0,
-                        symptom_count=match_count,
-                        match_percentage=float(match_percentage),
-                        urgency=urgency,
-                        precautions=detail.get('precautions', []),
-                        medications=detail.get('medications', []),
-                        diet=detail.get('diet', []),
-                        workouts=detail.get('workouts', []),
-                        red_flags=detail.get('red_flags', [])
-                    ))
-        
+        condition_matches = self._build_condition_matches(matches)
         red_flags = check_red_flags(all_symptoms)
         
         try:
