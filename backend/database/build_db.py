@@ -34,11 +34,11 @@ class DatabaseBuilder:
         print("🔄 Building Medical Database...")
         self._parse_chunk_file()
         self._load_disease_info()
-        self._create_sqlite_db()
+        self._create_single_table_db()
         self._generate_json()
         print("✅ Database build complete!")
         print(f"   📊 Diseases: {len(self.disease_symptoms_map)}")
-        print(f"   🩺 Symptoms: {len(self.symptom_set)}")
+        print(f"   🩺 Unique Symptoms: {len(self.symptom_set)}")
     
     def _parse_chunk_file(self):
         chunk_path = self.raw_data_dir / "Diseases.csv"
@@ -149,21 +149,19 @@ class DatabaseBuilder:
         
         return [item.strip() for item in value.split(',') if item.strip()]
     
-    def _create_sqlite_db(self):
+    def _create_single_table_db(self):
+        """Create a single table database with all disease information in one table"""
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
-        cursor.execute("PRAGMA foreign_keys = ON")
-        
-        cursor.execute("DROP TABLE IF EXISTS disease_symptoms")
         cursor.execute("DROP TABLE IF EXISTS diseases")
-        cursor.execute("DROP TABLE IF EXISTS symptoms")
         
         cursor.execute("""
         CREATE TABLE diseases (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT UNIQUE NOT NULL,
             description TEXT,
+            symptoms TEXT,
             precautions TEXT,
             medications TEXT,
             diet TEXT,
@@ -172,147 +170,107 @@ class DatabaseBuilder:
         )
         """)
         
-        cursor.execute("""
-        CREATE TABLE symptoms (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT UNIQUE NOT NULL
-        )
-        """)
-        
-        cursor.execute("""
-        CREATE TABLE disease_symptoms (
-            disease_id INTEGER,
-            symptom_id INTEGER,
-            PRIMARY KEY (disease_id, symptom_id),
-            FOREIGN KEY (disease_id) REFERENCES diseases(id) ON DELETE CASCADE,
-            FOREIGN KEY (symptom_id) REFERENCES symptoms(id) ON DELETE CASCADE
-        )
-        """)
-        
-        cursor.execute("CREATE INDEX idx_disease_symptoms_disease ON disease_symptoms(disease_id)")
-        cursor.execute("CREATE INDEX idx_disease_symptoms_symptom ON disease_symptoms(symptom_id)")
         cursor.execute("CREATE INDEX idx_diseases_name ON diseases(name)")
-        cursor.execute("CREATE INDEX idx_symptoms_name ON symptoms(name)")
         
-        symptom_id_map = {}
-        for symptom in tqdm(sorted(self.symptom_set), desc="Inserting symptoms"):
-            cursor.execute("INSERT INTO symptoms (name) VALUES (?)", (symptom,))
-            symptom_id_map[symptom] = cursor.lastrowid
-        
-        disease_id_map = {}
         for disease, symptoms in tqdm(
             self.disease_symptoms_map.items(),
-            desc="Inserting diseases"
+            desc="Inserting diseases into single table"
         ):
             info = self.disease_info.get(disease, {})
             
+            symptoms_json = json.dumps(symptoms)
             precautions_json = json.dumps(info.get('precautions', []))
             medications_json = json.dumps(info.get('medications', []))
             diet_json = json.dumps(info.get('diet', []))
             workouts_json = json.dumps(info.get('workouts', []))
             
             cursor.execute("""
-            INSERT INTO diseases (name, description, precautions, medications, diet, workouts, symptom_count)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT OR REPLACE INTO diseases 
+            (name, description, symptoms, precautions, medications, diet, workouts, symptom_count)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 disease,
                 info.get('description', ''),
+                symptoms_json,
                 precautions_json,
                 medications_json,
                 diet_json,
                 workouts_json,
                 len(symptoms)
             ))
-            disease_id_map[disease] = cursor.lastrowid
-        
-        batch = []
-        batch_size = 10000
-        for disease, symptoms in tqdm(
-            self.disease_symptoms_map.items(),
-            desc="Building relationships"
-        ):
-            disease_id = disease_id_map.get(disease)
-            if not disease_id:
-                continue
-            
-            for symptom in symptoms:
-                symptom_id = symptom_id_map.get(symptom)
-                if symptom_id:
-                    batch.append((disease_id, symptom_id))
-                    
-                    if len(batch) >= batch_size:
-                        cursor.executemany(
-                            "INSERT OR IGNORE INTO disease_symptoms (disease_id, symptom_id) VALUES (?, ?)",
-                            batch
-                        )
-                        batch = []
-        
-        if batch:
-            cursor.executemany(
-                "INSERT OR IGNORE INTO disease_symptoms (disease_id, symptom_id) VALUES (?, ?)",
-                batch
-            )
         
         conn.commit()
-        conn.close()
         
-        print(f"   💾 Database created: {self.db_path}")
+        cursor.execute("SELECT COUNT(*) FROM diseases")
+        disease_count = cursor.fetchone()[0]
+        
+        print(f"   💾 Single table database created: {self.db_path}")
+        print(f"   📊 Total diseases stored: {disease_count}")
+        
+        cursor.execute("SELECT name, symptom_count FROM diseases LIMIT 3")
+        samples = cursor.fetchall()
+        print("   📋 Sample diseases:")
+        for sample in samples:
+            print(f"      - {sample[0]} ({sample[1]} symptoms)")
+        
+        conn.close()
     
     def _generate_json(self):
+        """Generate JSON file from the single table database"""
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
         cursor.execute("""
         SELECT 
-            d.name,
-            d.description,
-            d.precautions,
-            d.medications,
-            d.diet,
-            d.workouts,
-            d.symptom_count,
-            GROUP_CONCAT(s.name) as symptoms
-        FROM diseases d
-        LEFT JOIN disease_symptoms ds ON d.id = ds.disease_id
-        LEFT JOIN symptoms s ON ds.symptom_id = s.id
-        GROUP BY d.id
-        ORDER BY d.name
+            name,
+            description,
+            symptoms,
+            precautions,
+            medications,
+            diet,
+            workouts,
+            symptom_count
+        FROM diseases
+        ORDER BY name
         """)
         
         diseases = {}
         for row in cursor.fetchall():
-            name, description, precautions, medications, diet, workouts, symptom_count, symptoms_str = row
+            name, description, symptoms_str, precautions_str, medications_str, diet_str, workouts_str, symptom_count = row
             
             try:
-                precautions_list = json.loads(precautions) if precautions else []
+                symptoms_list = json.loads(symptoms_str) if symptoms_str else []
+            except:
+                symptoms_list = []
+            
+            try:
+                precautions_list = json.loads(precautions_str) if precautions_str else []
             except:
                 precautions_list = []
             
             try:
-                medications_list = json.loads(medications) if medications else []
+                medications_list = json.loads(medications_str) if medications_str else []
             except:
                 medications_list = []
             
             try:
-                diet_list = json.loads(diet) if diet else []
+                diet_list = json.loads(diet_str) if diet_str else []
             except:
                 diet_list = []
             
             try:
-                workouts_list = json.loads(workouts) if workouts else []
+                workouts_list = json.loads(workouts_str) if workouts_str else []
             except:
                 workouts_list = []
             
-            symptoms_list = symptoms_str.split(',') if symptoms_str else []
-            
             diseases[name] = {
                 'description': description or '',
+                'symptoms': symptoms_list,
                 'precautions': precautions_list,
                 'medications': medications_list,
                 'diet': diet_list,
                 'workouts': workouts_list,
-                'symptom_count': symptom_count,
-                'symptoms': symptoms_list
+                'symptom_count': symptom_count
             }
         
         conn.close()
@@ -322,6 +280,44 @@ class DatabaseBuilder:
         
         print(f"   📄 JSON generated: {self.json_path}")
 
+def query_examples(db_path):
+    """Example queries for the single table database"""
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    
+    print("\n📊 Query Examples:")
+    
+    print("\n1. Get 'common cold' disease info:")
+    cursor.execute("SELECT * FROM diseases WHERE name LIKE '%cold%'")
+    row = cursor.fetchone()
+    if row:
+        disease_data = {
+            'name': row[1],
+            'description': row[2],
+            'symptoms': json.loads(row[3]),
+            'precautions': json.loads(row[4]),
+            'medications': json.loads(row[5]),
+            'diet': json.loads(row[6]),
+            'workouts': json.loads(row[7])
+        }
+        print(json.dumps(disease_data, indent=2))
+    
+    print("\n2. Diseases with 'fever' symptom:")
+    cursor.execute("SELECT name FROM diseases WHERE symptoms LIKE '%fever%'")
+    fever_diseases = cursor.fetchall()
+    for disease in fever_diseases[:5]:  
+        print(f"   - {disease[0]}")
+    
+    print("\n3. Top 3 diseases with most symptoms:")
+    cursor.execute("SELECT name, symptom_count FROM diseases ORDER BY symptom_count DESC LIMIT 3")
+    top_diseases = cursor.fetchall()
+    for disease in top_diseases:
+        print(f"   - {disease[0]} ({disease[1]} symptoms)")
+    
+    conn.close()
+
 if __name__ == "__main__":
     builder = DatabaseBuilder()
     builder.build()
+    
+    query_examples(DB_PATH)
