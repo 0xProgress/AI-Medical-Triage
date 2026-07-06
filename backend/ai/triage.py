@@ -116,15 +116,16 @@ class TriageEngine:
                     medications=detail.get('medications', []),
                     diet=detail.get('diet', []),
                     workouts=detail.get('workouts', []),
-                    red_flags=detail.get('red_flags', [])
+                    # Removed red_flags as it's not stored per-disease in single table
+                    # If needed, you can calculate red flags from symptoms
+                    red_flags=[]
                 ))
         
         return condition_matches
     
     def _generate_smart_follow_up(self, symptoms: List[str], matches: List) -> str:
         """
-        Generate a follow-up question using database-driven symptom differentiation
-        instead of always calling the LLM. Falls back to LLM only when needed.
+        Generate a follow-up question using database-driven symptom differentiation.
         """
         if not symptoms or not matches:
             return "Could you describe your symptoms in more detail? Please mention any pain, discomfort, or changes you're experiencing."
@@ -135,17 +136,19 @@ class TriageEngine:
         
         differentiating_symptoms = []
         
+        # Get symptoms from top matching diseases
         for disease_name in top_disease_names:
             try:
-                disease_symptoms = get_disease_details(disease_name)
-                if disease_symptoms and disease_symptoms.get('symptoms'):
-                    for ds in disease_symptoms['symptoms']:
+                disease_details = get_disease_details(disease_name)
+                if disease_details and disease_details.get('symptoms'):
+                    for ds in disease_details['symptoms']:
                         ds_lower = ds.strip().lower()
                         if ds_lower and ds_lower not in current_symptoms and ds_lower in all_symptoms_db:
                             differentiating_symptoms.append(ds_lower)
             except Exception:
                 continue
         
+        # Get related symptoms for current symptoms
         for symptom in symptoms[:3]:
             try:
                 related = find_related_symptoms(symptom, limit=5)
@@ -157,6 +160,7 @@ class TriageEngine:
             except Exception:
                 continue
         
+        # Remove duplicates while preserving order
         seen = set()
         unique_diff = []
         for s in differentiating_symptoms:
@@ -172,6 +176,7 @@ class TriageEngine:
         if unique_diff:
             return f"One more thing — are you experiencing {unique_diff[0]}?"
         
+        # Fallback to LLM if no differentiating symptoms found
         try:
             condition_dicts = []
             disease_details_batch = get_diseases_batch(top_disease_names)
@@ -299,7 +304,6 @@ class TriageEngine:
                     "max_turns_reached": False
                 }
         
-
         should_conclude, reason = self._should_conclude(session, matches, condition_matches[0].name if condition_matches else None)
         
         if should_conclude and condition_matches:
