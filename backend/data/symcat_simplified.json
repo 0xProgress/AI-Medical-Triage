@@ -1,6 +1,19 @@
 {
   "actinic keratosis": {
     "description": "Actinic keratosis is a rough, scaly patch on the skin caused by prolonged sun exposure, and is considered a precancerous condition that can develop into squamous cell carcinoma.",
+    "symptoms": [
+      "itching of skin",
+      "skin swelling",
+      "skin rash",
+      "skin dryness, peeling, scaliness, or roughness",
+      "skin lesion",
+      "symptoms of the face",
+      "skin moles",
+      "abnormal appearing skin",
+      "skin irritation",
+      "irregular appearing scalp",
+      "skin growth"
+    ],
     "precautions": [
       "Avoid sun exposure",
       "Use broad-spectrum sunscreen",
@@ -27,26 +40,24 @@
       "Low-sweat activities: Prevent skin irritation",
       "Walking in shaded areas: If outdoor movement needed"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abnormal appearing skin",
-      "irregular appearing scalp",
-      "itching of skin",
-      "skin dryness",
-      " peeling",
-      " scaliness",
-      " or roughness",
-      "skin growth",
-      "skin irritation",
-      "skin lesion",
-      "skin moles",
-      "skin rash",
-      "skin swelling",
-      "symptoms of the face"
-    ]
+    "symptom_count": 11
   },
   "acute bronchiolitis": {
     "description": "Acute bronchiolitis is a common lower respiratory tract infection in infants, usually caused by RSV, leading to wheezing, coughing, and difficulty breathing.",
+    "symptoms": [
+      "fever",
+      "coryza",
+      "irritable infant",
+      "decreased appetite",
+      "shortness of breath",
+      "difficulty breathing",
+      "hurts to breath",
+      "cough",
+      "vomiting",
+      "nasal congestion",
+      "pulling at ears",
+      "wheezing"
+    ],
     "precautions": [
       "Keep child hydrated",
       "Use humidifier",
@@ -73,24 +84,24 @@
       "Light walking: Only after full recovery",
       "Avoid dusty or polluted areas: Protect airways"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "coryza",
-      "cough",
-      "decreased appetite",
-      "difficulty breathing",
-      "fever",
-      "hurts to breath",
-      "irritable infant",
-      "nasal congestion",
-      "pulling at ears",
-      "shortness of breath",
-      "vomiting",
-      "wheezing"
-    ]
+    "symptom_count": 12
   },
   "acute bronchitis": {
     "description": "Acute bronchitis is inflammation of the bronchial tubes in the lungs, typically caused by a viral infection, resulting in cough, mucus production, chest discomfort, and low-grade fever.",
+    "symptoms": [
+      "sore throat",
+      "headache",
+      "fever",
+      "shortness of breath",
+      "coryza",
+      "coughing up sputum",
+      "congestion in chest",
+      "difficulty breathing",
+      "cough",
+      "sharp chest pain",
+      "nasal congestion",
+      "wheezing"
+    ],
     "precautions": [
       "Avoid smoking",
       "Drink warm fluids",
@@ -117,24 +128,23 @@
       "Walking: Gradually reintroduce activity",
       "Avoid cold-air workouts: Prevent airway constriction"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "congestion in chest",
-      "coryza",
-      "cough",
-      "coughing up sputum",
-      "difficulty breathing",
-      "fever",
-      "headache",
-      "nasal congestion",
-      "sharp chest pain",
-      "shortness of breath",
-      "sore throat",
-      "wheezing"
-    ]
+    "symptom_count": 12
   },
   "acute bronchospasm": {
     "description": "Acute bronchospasm is a sudden constriction of the muscles in the walls of the bronchioles, often triggered by asthma or allergens, causing wheezing and difficulty breathing.",
+    "symptoms": [
+      "fever",
+      "sore throat",
+      "coryza",
+      "shortness of breath",
+      "difficulty breathing",
+      "cough",
+      "chest tightness",
+      "vomiting",
+      "nasal congestion",
+      "sharp chest pain",
+      "wheezing"
+    ],
     "precautions": [
       "Avoid cold air",
       "Use bronchodilator inhaler",
@@ -161,23 +171,23 @@
       "Gentle stretching: Promote oxygen flow",
       "Indoor walking: In controlled environments"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "chest tightness",
-      "coryza",
-      "cough",
-      "difficulty breathing",
-      "fever",
-      "nasal congestion",
-      "sharp chest pain",
-      "shortness of breath",
-      "sore throat",
-      "vomiting",
-      "wheezing"
-    ]
+    "symptom_count": 11
   },
   "acute kidney injury": {
     "description": "Acute kidney injury (AKI) is a sudden loss of kidney function due to illness, injury, or toxins, leading to buildup of waste products in the blood.",
+    "symptoms": [
+      "dizziness",
+      "shortness of breath",
+      "retention of urine",
+      "nausea",
+      "peripheral edema",
+      "symptoms of the kidneys",
+      "vomiting",
+      "kidney mass",
+      "sharp chest pain",
+      "sharp abdominal pain",
+      "weakness"
+    ],
     "precautions": [
       "Avoid NSAIDs",
       "Stay hydrated",
@@ -204,23 +214,24 @@
       "Strength training: Only when kidney function stabilizes",
       "Workouts under supervision: Monitor vital signs"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "dizziness",
-      "kidney mass",
-      "nausea",
-      "peripheral edema",
-      "retention of urine",
-      "sharp abdominal pain",
-      "sharp chest pain",
-      "shortness of breath",
-      "symptoms of the kidneys",
-      "vomiting",
-      "weakness"
-    ]
+    "symptom_count": 11
   },
   "acute pancreatitis": {
     "description": "Acute pancreatitis is a sudden inflammation of the pancreas that causes severe abdominal pain, nausea, vomiting, and elevated pancreatic enzymes, often due to gallstones or alcohol use.",
+    "symptoms": [
+      "nausea",
+      "lower body pain",
+      "upper abdominal pain",
+      "side pain",
+      "hemoptysis",
+      "diarrhea",
+      "vomiting",
+      "sharp chest pain",
+      "abusing alcohol",
+      "burning abdominal pain",
+      "sharp abdominal pain",
+      "back pain"
+    ],
     "precautions": [
       "Avoid alcohol",
       "Eat a low-fat diet",
@@ -247,24 +258,23 @@
       "Rest: Allow healing",
       "Breathing exercises: Reduce stress and pain"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "abusing alcohol",
-      "back pain",
-      "burning abdominal pain",
-      "diarrhea",
-      "hemoptysis",
-      "lower body pain",
-      "nausea",
-      "sharp abdominal pain",
-      "sharp chest pain",
-      "side pain",
-      "upper abdominal pain",
-      "vomiting"
-    ]
+    "symptom_count": 12
   },
   "acute sinusitis": {
     "description": "Acute sinusitis is a temporary inflammation or infection of the sinuses, usually following a cold, causing nasal congestion, facial pain, pressure, and headache.",
+    "symptoms": [
+      "sore throat",
+      "fever",
+      "coryza",
+      "coughing up sputum",
+      "frontal headache",
+      "cough",
+      "ear pain",
+      "sinus congestion",
+      "facial pain",
+      "nasal congestion",
+      "painful sinuses"
+    ],
     "precautions": [
       "Use nasal saline spray",
       "Stay hydrated",
@@ -291,23 +301,23 @@
       "Walking: Low intensity, improves circulation",
       "Avoid cold-weather workouts: Prevent sinus aggravation"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "coryza",
-      "cough",
-      "coughing up sputum",
-      "ear pain",
-      "facial pain",
-      "fever",
-      "frontal headache",
-      "nasal congestion",
-      "painful sinuses",
-      "sinus congestion",
-      "sore throat"
-    ]
+    "symptom_count": 11
   },
   "allergy": {
     "description": "An allergy is an overreaction of the immune system to substances like pollen, food, or medications, causing symptoms like sneezing, itching, rash, or anaphylaxis.",
+    "symptoms": [
+      "itchiness of eye",
+      "itching of skin",
+      "swollen eye",
+      "skin swelling",
+      "skin rash",
+      "peripheral edema",
+      "lip swelling",
+      "cough",
+      "abnormal appearing skin",
+      "allergic reaction",
+      "fluid retention"
+    ],
     "precautions": [
       "Apply calamine",
       "Cover area with bandage",
@@ -334,23 +344,23 @@
       "Swimming in clean pools: Clears airways",
       "Avoid exercising in high pollution: Protect respiratory health"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abnormal appearing skin",
-      "allergic reaction",
-      "cough",
-      "fluid retention",
-      "itchiness of eye",
-      "itching of skin",
-      "lip swelling",
-      "peripheral edema",
-      "skin rash",
-      "skin swelling",
-      "swollen eye"
-    ]
+    "symptom_count": 11
   },
   "angina": {
     "description": "Angina is chest pain or discomfort due to reduced blood flow to the heart muscle, often triggered by exertion or stress, and relieved by rest or medication.",
+    "symptoms": [
+      "dizziness",
+      "hot flashes",
+      "shortness of breath",
+      "irregular heartbeat",
+      "increased heart rate",
+      "lower body pain",
+      "chest tightness",
+      "palpitations",
+      "sharp chest pain",
+      "sweating",
+      "arm pain"
+    ],
     "precautions": [
       "Avoid overexertion",
       "Take nitroglycerin as prescribed",
@@ -377,23 +387,24 @@
       "Avoid cold-weather workouts: Prevent constriction",
       "No heavy lifting: Can trigger symptoms"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "arm pain",
-      "chest tightness",
-      "dizziness",
-      "hot flashes",
-      "increased heart rate",
-      "irregular heartbeat",
-      "lower body pain",
-      "palpitations",
-      "sharp chest pain",
-      "shortness of breath",
-      "sweating"
-    ]
+    "symptom_count": 11
   },
   "anxiety": {
     "description": "Anxiety is a mental health condition characterized by excessive worry, nervousness, or fear that interferes with daily activities, often accompanied by physical symptoms like restlessness, sweating, or rapid heartbeat.",
+    "symptoms": [
+      "headache",
+      "anxiety and nervousness",
+      "shortness of breath",
+      "abnormal involuntary movements",
+      "depression",
+      "irregular heartbeat",
+      "increased heart rate",
+      "depressive or psychotic symptoms",
+      "palpitations",
+      "insomnia",
+      "sharp chest pain",
+      "fears and phobias"
+    ],
     "precautions": [
       "Practice relaxation techniques",
       "Avoid stimulants like caffeine",
@@ -420,24 +431,23 @@
       "Walking in nature: Calms the mind",
       "Tai chi: Improve mental and emotional balance"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "abnormal involuntary movements",
-      "anxiety and nervousness",
-      "depression",
-      "depressive or psychotic symptoms",
-      "fears and phobias",
-      "headache",
-      "increased heart rate",
-      "insomnia",
-      "irregular heartbeat",
-      "palpitations",
-      "sharp chest pain",
-      "shortness of breath"
-    ]
+    "symptom_count": 12
   },
   "appendicitis": {
     "description": "Appendicitis is inflammation of the appendix, usually requiring surgery, and causes sudden lower right abdominal pain, nausea, and fever.",
+    "symptoms": [
+      "fever",
+      "decreased appetite",
+      "nausea",
+      "upper abdominal pain",
+      "side pain",
+      "stomach bloating",
+      "diarrhea",
+      "vomiting",
+      "burning abdominal pain",
+      "lower abdominal pain",
+      "sharp abdominal pain"
+    ],
     "precautions": [
       "Avoid taking laxatives",
       "Seek emergency care",
@@ -464,23 +474,24 @@
       "Walking: Introduced gradually",
       "Avoid abdominal workouts until cleared"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "burning abdominal pain",
-      "decreased appetite",
-      "diarrhea",
-      "fever",
-      "lower abdominal pain",
-      "nausea",
-      "sharp abdominal pain",
-      "side pain",
-      "stomach bloating",
-      "upper abdominal pain",
-      "vomiting"
-    ]
+    "symptom_count": 11
   },
   "arthritis of the hip": {
     "description": "Arthritis of the hip involves inflammation and degeneration of the hip joint cartilage, leading to pain, stiffness, and reduced mobility, commonly due to osteoarthritis.",
+    "symptoms": [
+      "groin pain",
+      "joint pain",
+      "lower body pain",
+      "ache all over",
+      "hip pain",
+      "knee pain",
+      "pelvic pain",
+      "problems with movement",
+      "leg pain",
+      "back pain",
+      "low back pain",
+      "hip stiffness or tightness"
+    ],
     "precautions": [
       "Do low-impact exercises",
       "Use walking aids if needed",
@@ -507,24 +518,23 @@
       "Walking with support: Use cane if needed",
       "Strength training: Build support muscles around joint"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "ache all over",
-      "back pain",
-      "groin pain",
-      "hip pain",
-      "hip stiffness or tightness",
-      "joint pain",
-      "knee pain",
-      "leg pain",
-      "low back pain",
-      "lower body pain",
-      "pelvic pain",
-      "problems with movement"
-    ]
+    "symptom_count": 12
   },
   "asthma": {
     "description": "Asthma is a chronic inflammatory disease of the airways causing recurrent wheezing, breathlessness, chest tightness, and coughing, often triggered by allergens, exercise, or cold air.",
+    "symptoms": [
+      "fever",
+      "coryza",
+      "shortness of breath",
+      "coughing up sputum",
+      "difficulty breathing",
+      "cough",
+      "chest tightness",
+      "allergic reaction",
+      "sharp chest pain",
+      "nasal congestion",
+      "wheezing"
+    ],
     "precautions": [
       "Avoid known triggers",
       "Use inhaler as prescribed",
@@ -551,23 +561,24 @@
       "Swimming: Low-impact cardio good for lungs",
       "Avoid strenuous workouts during flare-ups: Prevent attacks"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "allergic reaction",
-      "chest tightness",
-      "coryza",
-      "cough",
-      "coughing up sputum",
-      "difficulty breathing",
-      "fever",
-      "nasal congestion",
-      "sharp chest pain",
-      "shortness of breath",
-      "wheezing"
-    ]
+    "symptom_count": 11
   },
   "benign prostatic hyperplasia (bph)": {
     "description": "BPH is a non-cancerous enlargement of the prostate gland in older men, causing difficulty urinating, weak stream, or frequent urination, especially at night.",
+    "symptoms": [
+      "swelling of scrotum",
+      "symptoms of prostate",
+      "retention of urine",
+      "low urine output",
+      "impotence",
+      "symptoms of bladder",
+      "hesitancy",
+      "excessive urination at night",
+      "involuntary urination",
+      "frequent urination",
+      "pain in testicles",
+      "blood in urine"
+    ],
     "precautions": [
       "Limit evening fluid intake",
       "Avoid alcohol and caffeine",
@@ -594,24 +605,23 @@
       "Avoid cycling: Can worsen symptoms",
       "Stretching: Relieve pelvic tension"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "blood in urine",
-      "excessive urination at night",
-      "frequent urination",
-      "hesitancy",
-      "impotence",
-      "involuntary urination",
-      "low urine output",
-      "pain in testicles",
-      "retention of urine",
-      "swelling of scrotum",
-      "symptoms of bladder",
-      "symptoms of prostate"
-    ]
+    "symptom_count": 12
   },
   "brachial neuritis": {
     "description": "Brachial neuritis is inflammation of the brachial plexus nerves, causing sudden shoulder and arm pain followed by weakness or numbness.",
+    "symptoms": [
+      "headache",
+      "neck pain",
+      "shoulder pain",
+      "hand or finger weakness",
+      "loss of sensation",
+      "paresthesia",
+      "hand or finger pain",
+      "arm pain",
+      "back pain",
+      "elbow pain",
+      "low back pain"
+    ],
     "precautions": [
       "Avoid heavy lifting",
       "Physical therapy",
@@ -638,23 +648,24 @@
       "Avoid overhead lifting",
       "Pain management with guided stretching"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "arm pain",
-      "back pain",
-      "elbow pain",
-      "hand or finger pain",
-      "hand or finger weakness",
-      "headache",
-      "loss of sensation",
-      "low back pain",
-      "neck pain",
-      "paresthesia",
-      "shoulder pain"
-    ]
+    "symptom_count": 11
   },
   "bursitis": {
     "description": "Bursitis is inflammation of the bursae—small fluid-filled sacs that cushion bones and joints—causing joint pain, swelling, and limited movement, often from repetitive motion or pressure.",
+    "symptoms": [
+      "shoulder pain",
+      "shoulder stiffness or tightness",
+      "arm pain",
+      "leg swelling",
+      "arm swelling",
+      "hip pain",
+      "knee pain",
+      "arm stiffness or tightness",
+      "knee swelling",
+      "leg pain",
+      "elbow swelling",
+      "elbow pain"
+    ],
     "precautions": [
       "Rest the affected joint",
       "Apply ice packs",
@@ -681,24 +692,23 @@
       "Stretching: Keep affected areas flexible",
       "Avoid pressure on joints: Use proper form and padding"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "arm pain",
-      "arm stiffness or tightness",
-      "arm swelling",
-      "elbow pain",
-      "elbow swelling",
-      "hip pain",
-      "knee pain",
-      "knee swelling",
-      "leg pain",
-      "leg swelling",
-      "shoulder pain",
-      "shoulder stiffness or tightness"
-    ]
+    "symptom_count": 12
   },
   "carpal tunnel syndrome": {
     "description": "Carpal tunnel syndrome is a condition caused by compression of the median nerve in the wrist, leading to numbness, tingling, and weakness in the hand and fingers.",
+    "symptoms": [
+      "neck pain",
+      "hand or finger stiffness or tightness",
+      "arm weakness",
+      "wrist pain",
+      "loss of sensation",
+      "wrist swelling",
+      "paresthesia",
+      "hand or finger pain",
+      "arm pain",
+      "hand or finger swelling",
+      "elbow pain"
+    ],
     "precautions": [
       "Take frequent hand breaks",
       "Use wrist splints",
@@ -725,23 +735,24 @@
       "Avoid repetitive strain: Modify activities",
       "Yoga: Helps with posture and nerve health"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "arm pain",
-      "arm weakness",
-      "elbow pain",
-      "hand or finger pain",
-      "hand or finger stiffness or tightness",
-      "hand or finger swelling",
-      "loss of sensation",
-      "neck pain",
-      "paresthesia",
-      "wrist pain",
-      "wrist swelling"
-    ]
+    "symptom_count": 11
   },
   "cholecystitis": {
     "description": "Cholecystitis is inflammation of the gallbladder, often due to gallstones, causing severe upper abdominal pain, fever, nausea, and tenderness.",
+    "symptoms": [
+      "nausea",
+      "lower body pain",
+      "upper abdominal pain",
+      "side pain",
+      "stomach bloating",
+      "vomiting",
+      "symptoms of the kidneys",
+      "sharp chest pain",
+      "burning abdominal pain",
+      "sharp abdominal pain",
+      "back pain",
+      "regurgitation.1"
+    ],
     "precautions": [
       "Avoid fatty foods",
       "Stay hydrated",
@@ -768,24 +779,23 @@
       "Walking: Improves digestion",
       "Avoid core strain: Prevent gallbladder pressure"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "back pain",
-      "burning abdominal pain",
-      "lower body pain",
-      "nausea",
-      "regurgitation.1",
-      "sharp abdominal pain",
-      "sharp chest pain",
-      "side pain",
-      "stomach bloating",
-      "symptoms of the kidneys",
-      "upper abdominal pain",
-      "vomiting"
-    ]
+    "symptom_count": 12
   },
   "chronic back pain": {
     "description": "Chronic back pain is persistent or recurring pain in the back lasting more than three months, often due to structural issues, nerve damage, or degenerative conditions.",
+    "symptoms": [
+      "groin pain",
+      "lower body pain",
+      "hip pain",
+      "side pain",
+      "loss of sensation",
+      "back stiffness or tightness",
+      "back pain",
+      "neck pain",
+      "leg pain",
+      "back cramps or spasms",
+      "low back pain"
+    ],
     "precautions": [
       "Maintain proper posture",
       "Regular stretching",
@@ -811,23 +821,23 @@
       "Stretching: Hamstrings, hips, and back",
       "Avoid high-impact sports"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "back cramps or spasms",
-      "back pain",
-      "back stiffness or tightness",
-      "groin pain",
-      "hip pain",
-      "leg pain",
-      "loss of sensation",
-      "low back pain",
-      "lower body pain",
-      "neck pain",
-      "side pain"
-    ]
+    "symptom_count": 11
   },
   "chronic constipation": {
     "description": "Chronic constipation is a long-term condition characterized by infrequent or difficult bowel movements, often accompanied by abdominal discomfort or bloating.",
+    "symptoms": [
+      "retention of urine",
+      "nausea",
+      "pain of the anus",
+      "blood in stool",
+      "constipation",
+      "rectal bleeding",
+      "changes in stool appearance",
+      "vomiting",
+      "burning abdominal pain",
+      "lower abdominal pain",
+      "sharp abdominal pain"
+    ],
     "precautions": [
       "Increase fiber intake",
       "Exercise regularly",
@@ -854,23 +864,23 @@
       "Core-focused stretching: Gently activates abdomen",
       "Hydration pre- and post-workout: Key support"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "blood in stool",
-      "burning abdominal pain",
-      "changes in stool appearance",
-      "constipation",
-      "lower abdominal pain",
-      "nausea",
-      "pain of the anus",
-      "rectal bleeding",
-      "retention of urine",
-      "sharp abdominal pain",
-      "vomiting"
-    ]
+    "symptom_count": 11
   },
   "chronic obstructive pulmonary disease (copd)": {
     "description": "COPD is a group of progressive lung diseases, including emphysema and chronic bronchitis, characterized by airflow limitation, coughing, wheezing, and shortness of breath.",
+    "symptoms": [
+      "sore throat",
+      "coryza",
+      "fever",
+      "shortness of breath",
+      "coughing up sputum",
+      "congestion in chest",
+      "cough",
+      "chest tightness",
+      "nasal congestion",
+      "sharp chest pain",
+      "wheezing"
+    ],
     "precautions": [],
     "medications": [
       "Bronchodilators (e.g., Salbutamol)",
@@ -892,23 +902,23 @@
       "Stationary biking: Low strain on lungs",
       "Pulmonary rehabilitation exercises: Doctor-guided regimens"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "chest tightness",
-      "congestion in chest",
-      "coryza",
-      "cough",
-      "coughing up sputum",
-      "fever",
-      "nasal congestion",
-      "sharp chest pain",
-      "shortness of breath",
-      "sore throat",
-      "wheezing"
-    ]
+    "symptom_count": 11
   },
   "common cold": {
     "description": "The common cold is a viral infection of the upper respiratory tract, typically causing sneezing, sore throat, nasal congestion, cough, and mild fever.",
+    "symptoms": [
+      "sore throat",
+      "coryza",
+      "fever",
+      "headache",
+      "chills",
+      "cough",
+      "ear pain",
+      "vomiting",
+      "nasal congestion",
+      "flu-like syndrome",
+      "wheezing"
+    ],
     "precautions": [
       "Drink plenty of fluids",
       "Rest well",
@@ -935,23 +945,24 @@
       "Walking: Once energy returns",
       "Breathing exercises: Open airways"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "chills",
-      "coryza",
-      "cough",
-      "ear pain",
-      "fever",
-      "flu-like syndrome",
-      "headache",
-      "nasal congestion",
-      "sore throat",
-      "vomiting",
-      "wheezing"
-    ]
+    "symptom_count": 11
   },
   "complex regional pain syndrome": {
     "description": "Complex regional pain syndrome (CRPS) is a chronic pain condition usually affecting a limb after injury, with symptoms including burning pain, swelling, and sensitivity to touch.",
+    "symptoms": [
+      "paresthesia",
+      "abnormal involuntary movements",
+      "neck pain",
+      "foot or toe pain",
+      "arm pain",
+      "ache all over",
+      "loss of sensation",
+      "problems with movement",
+      "hand or finger pain",
+      "leg pain",
+      "back pain",
+      "low back pain"
+    ],
     "precautions": [
       "Follow physical therapy",
       "Manage stress",
@@ -978,24 +989,24 @@
       "Mirror therapy: Improve brain-muscle coordination",
       "Aqua therapy: Low-pain water exercises"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "abnormal involuntary movements",
-      "ache all over",
-      "arm pain",
-      "back pain",
-      "foot or toe pain",
-      "hand or finger pain",
-      "leg pain",
-      "loss of sensation",
-      "low back pain",
-      "neck pain",
-      "paresthesia",
-      "problems with movement"
-    ]
+    "symptom_count": 12
   },
   "concussion": {
     "description": "A concussion is a mild traumatic brain injury caused by a blow to the head or body, resulting in temporary loss of brain function, such as confusion, memory loss, or dizziness.",
+    "symptoms": [
+      "headache",
+      "dizziness",
+      "rib pain",
+      "difficulty speaking",
+      "nausea",
+      "disturbance of memory",
+      "sleepiness",
+      "facial pain",
+      "vomiting",
+      "neck pain",
+      "back pain",
+      "double vision"
+    ],
     "precautions": [
       "Rest and avoid screens",
       "Avoid physical activity",
@@ -1022,24 +1033,23 @@
       "Walking: Light activity to reintroduce movement",
       "Avoid screens and bright lights: Limit visual strain"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "back pain",
-      "difficulty speaking",
-      "disturbance of memory",
-      "dizziness",
-      "double vision",
-      "facial pain",
-      "headache",
-      "nausea",
-      "neck pain",
-      "rib pain",
-      "sleepiness",
-      "vomiting"
-    ]
+    "symptom_count": 12
   },
   "conjunctivitis": {
     "description": "Conjunctivitis (pink eye) is inflammation of the conjunctiva of the eye due to infection or allergy, resulting in redness, discharge, and eye irritation.",
+    "symptoms": [
+      "sore throat",
+      "itchiness of eye",
+      "coryza",
+      "fever",
+      "swollen eye",
+      "cough",
+      "lacrimation",
+      "nasal congestion",
+      "white discharge from eye",
+      "eye redness",
+      "pain in eye"
+    ],
     "precautions": [
       "Use prescribed eye drops",
       "Avoid touching/rubbing eyes",
@@ -1066,23 +1076,24 @@
       "Do not share gym equipment",
       "Clean face after workouts"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "coryza",
-      "cough",
-      "eye redness",
-      "fever",
-      "itchiness of eye",
-      "lacrimation",
-      "nasal congestion",
-      "pain in eye",
-      "sore throat",
-      "swollen eye",
-      "white discharge from eye"
-    ]
+    "symptom_count": 11
   },
   "conjunctivitis due to allergy": {
     "description": "Allergic conjunctivitis is inflammation of the conjunctiva (eye lining) caused by allergens like pollen or dust, leading to red, itchy, watery eyes without infectious discharge.",
+    "symptoms": [
+      "itchiness of eye",
+      "symptoms of eye",
+      "eye burns or stings",
+      "swollen eye",
+      "diminished vision",
+      "cough",
+      "allergic reaction",
+      "lacrimation",
+      "sneezing",
+      "nasal congestion",
+      "eye redness",
+      "pain in eye"
+    ],
     "precautions": [
       "Avoid rubbing eyes",
       "Use antihistamine drops",
@@ -1109,24 +1120,23 @@
       "Stretching: Avoid eye strain",
       "Avoid swimming: Prevent eye irritation"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "allergic reaction",
-      "cough",
-      "diminished vision",
-      "eye burns or stings",
-      "eye redness",
-      "itchiness of eye",
-      "lacrimation",
-      "nasal congestion",
-      "pain in eye",
-      "sneezing",
-      "swollen eye",
-      "symptoms of eye"
-    ]
+    "symptom_count": 12
   },
   "contact dermatitis": {
     "description": "Contact dermatitis is a skin inflammation caused by exposure to an irritant or allergen, resulting in redness, itching, blisters, or dryness.",
+    "symptoms": [
+      "itching of skin",
+      "acne or pimples",
+      "skin swelling",
+      "swollen eye",
+      "skin rash",
+      "skin dryness, peeling, scaliness, or roughness",
+      "skin lesion",
+      "skin moles",
+      "abnormal appearing skin",
+      "allergic reaction",
+      "skin irritation"
+    ],
     "precautions": [
       "Identify and avoid allergen",
       "Use fragrance-free products",
@@ -1153,26 +1163,23 @@
       "Use breathable clothing: During workouts",
       "Clean skin after exercise: Prevent flare-ups"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abnormal appearing skin",
-      "acne or pimples",
-      "allergic reaction",
-      "itching of skin",
-      "skin dryness",
-      " peeling",
-      " scaliness",
-      " or roughness",
-      "skin irritation",
-      "skin lesion",
-      "skin moles",
-      "skin rash",
-      "skin swelling",
-      "swollen eye"
-    ]
+    "symptom_count": 11
   },
   "cornea infection": {
     "description": "Cornea infection (keratitis) is an infection of the transparent front part of the eye, usually caused by bacteria, fungi, or viruses, leading to eye pain, redness, blurred vision, and light sensitivity.",
+    "symptoms": [
+      "itchiness of eye",
+      "eye burns or stings",
+      "swollen eye",
+      "diminished vision",
+      "lip swelling",
+      "spots or clouds in vision",
+      "lacrimation",
+      "eye redness",
+      "symptoms of eye",
+      "pain in eye",
+      "foreign body sensation in eye"
+    ],
     "precautions": [
       "Avoid touching eyes",
       "Use prescribed eye drops",
@@ -1199,23 +1206,23 @@
       "Indoor stretching: Limits light exposure",
       "Avoid swimming: Prevent waterborne pathogens"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "diminished vision",
-      "eye burns or stings",
-      "eye redness",
-      "foreign body sensation in eye",
-      "itchiness of eye",
-      "lacrimation",
-      "lip swelling",
-      "pain in eye",
-      "spots or clouds in vision",
-      "swollen eye",
-      "symptoms of eye"
-    ]
+    "symptom_count": 11
   },
   "croup": {
     "description": "Croup is a viral infection that causes swelling of the airway in young children, leading to a barking cough, hoarseness, and difficulty breathing, often worse at night.",
+    "symptoms": [
+      "fever",
+      "coryza",
+      "sore throat",
+      "shortness of breath",
+      "hoarse voice",
+      "abnormal breathing sounds",
+      "cough",
+      "vomiting",
+      "nasal congestion",
+      "pulling at ears",
+      "wheezing"
+    ],
     "precautions": [
       "Use humidified air",
       "Keep child calm",
@@ -1242,23 +1249,24 @@
       "Avoid exertion: May worsen symptoms",
       "Gentle play: Indoors and calm once recovering"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abnormal breathing sounds",
-      "coryza",
-      "cough",
-      "fever",
-      "hoarse voice",
-      "nasal congestion",
-      "pulling at ears",
-      "shortness of breath",
-      "sore throat",
-      "vomiting",
-      "wheezing"
-    ]
+    "symptom_count": 11
   },
   "cystitis": {
     "description": "Cystitis is inflammation of the bladder, usually from a bacterial infection, leading to frequent, painful urination and lower abdominal discomfort.",
+    "symptoms": [
+      "suprapubic pain",
+      "retention of urine",
+      "side pain",
+      "frequent urination",
+      "symptoms of bladder",
+      "pelvic pain",
+      "involuntary urination",
+      "painful urination",
+      "lower abdominal pain",
+      "sharp abdominal pain",
+      "blood in urine",
+      "back pain"
+    ],
     "precautions": [
       "Drink cranberry juice or water",
       "Urinate frequently",
@@ -1285,24 +1293,23 @@
       "Pelvic floor exercises: Improve control",
       "Avoid workouts that cause dehydration"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "back pain",
-      "blood in urine",
-      "frequent urination",
-      "involuntary urination",
-      "lower abdominal pain",
-      "painful urination",
-      "pelvic pain",
-      "retention of urine",
-      "sharp abdominal pain",
-      "side pain",
-      "suprapubic pain",
-      "symptoms of bladder"
-    ]
+    "symptom_count": 12
   },
   "degenerative disc disease": {
     "description": "Degenerative disc disease is a condition where spinal discs break down over time, leading to back pain, reduced flexibility, and sometimes nerve compression.",
+    "symptoms": [
+      "shoulder pain",
+      "joint pain",
+      "arm pain",
+      "lower body pain",
+      "hip pain",
+      "loss of sensation",
+      "paresthesia",
+      "neck pain",
+      "leg pain",
+      "back pain",
+      "low back pain"
+    ],
     "precautions": [
       "Maintain healthy weight",
       "Avoid lifting heavy items",
@@ -1329,23 +1336,24 @@
       "Low-impact aerobics: Walking or elliptical",
       "Avoid heavy lifting: Prevent worsening symptoms"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "arm pain",
-      "back pain",
-      "hip pain",
-      "joint pain",
-      "leg pain",
-      "loss of sensation",
-      "low back pain",
-      "lower body pain",
-      "neck pain",
-      "paresthesia",
-      "shoulder pain"
-    ]
+    "symptom_count": 11
   },
   "dental caries": {
     "description": "Dental caries (tooth decay) is the destruction of tooth enamel due to acids produced by bacteria feeding on sugars, leading to cavities, tooth pain, and infection if untreated.",
+    "symptoms": [
+      "toothache",
+      "skin swelling",
+      "jaw swelling",
+      "peripheral edema",
+      "gum pain",
+      "pain in gums",
+      "facial pain",
+      "restlessness",
+      "ear pain",
+      "skin irritation",
+      "neck swelling",
+      "mouth pain"
+    ],
     "precautions": [
       "Brush twice daily",
       "Limit sugar intake",
@@ -1372,24 +1380,23 @@
       "Regular workouts: Support overall oral health",
       "No intense jaw activities: Prevent further damage"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "ear pain",
-      "facial pain",
-      "gum pain",
-      "jaw swelling",
-      "mouth pain",
-      "neck swelling",
-      "pain in gums",
-      "peripheral edema",
-      "restlessness",
-      "skin irritation",
-      "skin swelling",
-      "toothache"
-    ]
+    "symptom_count": 12
   },
   "depression": {
     "description": "Depression is a mental health disorder characterized by persistent sadness, loss of interest or pleasure, fatigue, and changes in sleep or appetite, significantly impacting daily life.",
+    "symptoms": [
+      "anxiety and nervousness",
+      "depression",
+      "depressive or psychotic symptoms",
+      "temper problems",
+      "disturbance of memory",
+      "abusing alcohol",
+      "insomnia",
+      "drug abuse",
+      "delusions or hallucinations",
+      "hostile behavior",
+      "excessive anger"
+    ],
     "precautions": [
       "Maintain social connection",
       "Follow treatment plan",
@@ -1416,23 +1423,23 @@
       "Group activities: Enhance motivation",
       "Walking in nature: Proven to reduce symptoms"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abusing alcohol",
-      "anxiety and nervousness",
-      "delusions or hallucinations",
-      "depression",
-      "depressive or psychotic symptoms",
-      "disturbance of memory",
-      "drug abuse",
-      "excessive anger",
-      "hostile behavior",
-      "insomnia",
-      "temper problems"
-    ]
+    "symptom_count": 11
   },
   "developmental disability": {
     "description": "Developmental disabilities are chronic conditions that begin in childhood and affect physical, learning, language, or behavioral areas, such as autism or intellectual disability.",
+    "symptoms": [
+      "seizures",
+      "depressive or psychotic symptoms",
+      "difficulty speaking",
+      "temper problems",
+      "obsessions and compulsions",
+      "restlessness",
+      "antisocial behavior",
+      "delusions or hallucinations",
+      "fears and phobias",
+      "lack of growth",
+      "hostile behavior"
+    ],
     "precautions": [
       "Follow individualized education plans",
       "Encourage structured routine",
@@ -1459,23 +1466,23 @@
       "Group play or structured fitness",
       "Balance and core work: Tailored to individual ability"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "antisocial behavior",
-      "delusions or hallucinations",
-      "depressive or psychotic symptoms",
-      "difficulty speaking",
-      "fears and phobias",
-      "hostile behavior",
-      "lack of growth",
-      "obsessions and compulsions",
-      "restlessness",
-      "seizures",
-      "temper problems"
-    ]
+    "symptom_count": 11
   },
   "diaper rash": {
     "description": "Diaper rash is skin irritation in the diaper area of infants or adults using diapers, often caused by moisture, friction, or infection.",
+    "symptoms": [
+      "fever",
+      "irritable infant",
+      "skin rash",
+      "temper problems",
+      "blood in stool",
+      "cough",
+      "diaper rash",
+      "diarrhea",
+      "vomiting",
+      "nasal congestion",
+      "pulling at ears"
+    ],
     "precautions": [
       "Keep area dry",
       "Change diapers frequently",
@@ -1502,23 +1509,24 @@
       "Let skin breathe",
       "Gentle motion in open diapers (for infants)"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "blood in stool",
-      "cough",
-      "diaper rash",
-      "diarrhea",
-      "fever",
-      "irritable infant",
-      "nasal congestion",
-      "pulling at ears",
-      "skin rash",
-      "temper problems",
-      "vomiting"
-    ]
+    "symptom_count": 11
   },
   "diverticulitis": {
     "description": "Diverticulitis is inflammation or infection of small pouches (diverticula) in the colon wall, leading to abdominal pain, fever, and changes in bowel habits.",
+    "symptoms": [
+      "fever",
+      "nausea",
+      "constipation",
+      "blood in stool",
+      "upper abdominal pain",
+      "chills",
+      "side pain",
+      "diarrhea",
+      "vomiting",
+      "burning abdominal pain",
+      "lower abdominal pain",
+      "sharp abdominal pain"
+    ],
     "precautions": [
       "Eat low-fiber during flare-ups",
       "Stay hydrated",
@@ -1545,24 +1553,23 @@
       "Avoid heavy weights: Prevent abdominal strain",
       "Hydration support during and after workouts"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "blood in stool",
-      "burning abdominal pain",
-      "chills",
-      "constipation",
-      "diarrhea",
-      "fever",
-      "lower abdominal pain",
-      "nausea",
-      "sharp abdominal pain",
-      "side pain",
-      "upper abdominal pain",
-      "vomiting"
-    ]
+    "symptom_count": 12
   },
   "drug reaction": {
     "description": "A drug reaction is an adverse response to a medication, ranging from mild rashes or stomach upset to severe allergic responses like Stevens-Johnson syndrome or anaphylaxis.",
+    "symptoms": [
+      "headache",
+      "itching of skin",
+      "dizziness",
+      "shortness of breath",
+      "skin rash",
+      "nausea",
+      "peripheral edema",
+      "abnormal appearing skin",
+      "allergic reaction",
+      "vomiting",
+      "throat swelling"
+    ],
     "precautions": [
       "Stop the drug immediately",
       "Consult a doctor",
@@ -1589,23 +1596,23 @@
       "Breathing exercises: Calm stress responses",
       "Avoid sun exposure: If on photosensitive medications"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abnormal appearing skin",
-      "allergic reaction",
-      "dizziness",
-      "headache",
-      "itching of skin",
-      "nausea",
-      "peripheral edema",
-      "shortness of breath",
-      "skin rash",
-      "throat swelling",
-      "vomiting"
-    ]
+    "symptom_count": 11
   },
   "ear drum damage": {
     "description": "Ear drum damage (tympanic membrane perforation) is a tear or hole in the eardrum due to infection, injury, or loud noise, which may cause pain, hearing loss, or drainage.",
+    "symptoms": [
+      "fluid in ear",
+      "plugged feeling in ear",
+      "ringing in ear",
+      "diminished hearing",
+      "cough",
+      "ear pain",
+      "pulling at ears",
+      "nasal congestion",
+      "redness in ear",
+      "bleeding from ear",
+      "pus draining from ear"
+    ],
     "precautions": [
       "Avoid water entry into ear",
       "Don’t insert objects into ear",
@@ -1632,23 +1639,24 @@
       "Stretching: Avoid head-down positions",
       "Protect ears from loud music/explosive sports"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "bleeding from ear",
-      "cough",
-      "diminished hearing",
-      "ear pain",
-      "fluid in ear",
-      "nasal congestion",
-      "plugged feeling in ear",
-      "pulling at ears",
-      "pus draining from ear",
-      "redness in ear",
-      "ringing in ear"
-    ]
+    "symptom_count": 11
   },
   "eczema": {
     "description": "Eczema (atopic dermatitis) is a chronic skin condition that causes itchy, inflamed, red, and dry skin, often triggered by allergens, stress, or irritants.",
+    "symptoms": [
+      "itching of skin",
+      "warts",
+      "acne or pimples",
+      "skin swelling",
+      "skin rash",
+      "skin dryness, peeling, scaliness, or roughness",
+      "skin lesion",
+      "cough",
+      "abnormal appearing skin",
+      "allergic reaction",
+      "irregular appearing scalp",
+      "skin irritation"
+    ],
     "precautions": [
       "Moisturize regularly",
       "Avoid irritants like soaps & wool",
@@ -1675,27 +1683,24 @@
       "Cool, breathable workout clothing",
       "Shower promptly after exercise"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "abnormal appearing skin",
-      "acne or pimples",
-      "allergic reaction",
-      "cough",
-      "irregular appearing scalp",
-      "itching of skin",
-      "skin dryness",
-      " peeling",
-      " scaliness",
-      " or roughness",
-      "skin irritation",
-      "skin lesion",
-      "skin rash",
-      "skin swelling",
-      "warts"
-    ]
+    "symptom_count": 12
   },
   "esophagitis": {
     "description": "Esophagitis is inflammation of the esophagus, commonly due to acid reflux, infections, or medications, causing pain when swallowing and chest discomfort.",
+    "symptoms": [
+      "sore throat",
+      "shortness of breath",
+      "nausea",
+      "upper abdominal pain",
+      "cough",
+      "chest tightness",
+      "heartburn",
+      "vomiting",
+      "sharp chest pain",
+      "burning abdominal pain",
+      "sharp abdominal pain",
+      "difficulty in swallowing"
+    ],
     "precautions": [
       "Avoid spicy & acidic food",
       "Eat smaller meals",
@@ -1722,24 +1727,23 @@
       "Breathing exercises: Ease reflux",
       "No crunches or abdominal pressure"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "burning abdominal pain",
-      "chest tightness",
-      "cough",
-      "difficulty in swallowing",
-      "heartburn",
-      "nausea",
-      "sharp abdominal pain",
-      "sharp chest pain",
-      "shortness of breath",
-      "sore throat",
-      "upper abdominal pain",
-      "vomiting"
-    ]
+    "symptom_count": 12
   },
   "eustachian tube dysfunction (ear disorder)": {
     "description": "Eustachian tube dysfunction occurs when the tube connecting the middle ear to the throat becomes blocked or fails to open, causing pressure, pain, or hearing issues.",
+    "symptoms": [
+      "sore throat",
+      "dizziness",
+      "swollen or red tonsils",
+      "plugged feeling in ear",
+      "ringing in ear",
+      "diminished hearing",
+      "abnormal breathing sounds",
+      "allergic reaction",
+      "ear pain",
+      "nasal congestion",
+      "redness in ear"
+    ],
     "precautions": [
       "Avoid flying with a cold",
       "Use decongestants",
@@ -1766,23 +1770,24 @@
       "Gentle yoga: Avoid headstand poses",
       "Walking: Comfortable, low pressure"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abnormal breathing sounds",
-      "allergic reaction",
-      "diminished hearing",
-      "dizziness",
-      "ear pain",
-      "nasal congestion",
-      "plugged feeling in ear",
-      "redness in ear",
-      "ringing in ear",
-      "sore throat",
-      "swollen or red tonsils"
-    ]
+    "symptom_count": 11
   },
   "fungal infection of the hair": {
     "description": "Fungal infection of the hair, or tinea capitis, is a scalp infection caused by dermatophyte fungi, resulting in scaly patches, hair loss, and sometimes black dots or swelling.",
+    "symptoms": [
+      "itching of skin",
+      "acne or pimples",
+      "skin swelling",
+      "itchy scalp",
+      "skin rash",
+      "skin dryness, peeling, scaliness, or roughness",
+      "skin lesion",
+      "abnormal appearing skin",
+      "skin irritation",
+      "irregular appearing scalp",
+      "pelvic pain",
+      "skin growth"
+    ],
     "precautions": [
       "Keep scalp dry and clean",
       "Avoid sharing personal items",
@@ -1809,27 +1814,23 @@
       "Dry scalp after workouts: Prevent fungus growth",
       "Low-sweat activities: Reduce moisture"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "abnormal appearing skin",
-      "acne or pimples",
-      "irregular appearing scalp",
-      "itching of skin",
-      "itchy scalp",
-      "pelvic pain",
-      "skin dryness",
-      " peeling",
-      " scaliness",
-      " or roughness",
-      "skin growth",
-      "skin irritation",
-      "skin lesion",
-      "skin rash",
-      "skin swelling"
-    ]
+    "symptom_count": 12
   },
   "gallstone": {
     "description": "Gallstones are hardened deposits of digestive fluid in the gallbladder that can block bile flow, causing abdominal pain, nausea, and sometimes infection.",
+    "symptoms": [
+      "nausea",
+      "lower body pain",
+      "upper abdominal pain",
+      "heartburn",
+      "side pain",
+      "vomiting",
+      "sharp chest pain",
+      "burning abdominal pain",
+      "sharp abdominal pain",
+      "back pain",
+      "regurgitation.1"
+    ],
     "precautions": [
       "Avoid high-fat foods",
       "Maintain a healthy weight",
@@ -1856,23 +1857,24 @@
       "Breathing exercises: Reduce stress and spasm",
       "Avoid core-focused exercises: Prevent discomfort"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "back pain",
-      "burning abdominal pain",
-      "heartburn",
-      "lower body pain",
-      "nausea",
-      "regurgitation.1",
-      "sharp abdominal pain",
-      "sharp chest pain",
-      "side pain",
-      "upper abdominal pain",
-      "vomiting"
-    ]
+    "symptom_count": 11
   },
   "gastrointestinal hemorrhage": {
     "description": "Gastrointestinal hemorrhage is bleeding that occurs anywhere along the digestive tract, often presenting as vomiting blood or black, tarry stools, and can be caused by ulcers, varices, or cancer.",
+    "symptoms": [
+      "dizziness",
+      "melena",
+      "vomiting blood",
+      "fainting",
+      "nausea",
+      "blood in stool",
+      "changes in stool appearance",
+      "rectal bleeding",
+      "vomiting",
+      "diarrhea",
+      "sharp abdominal pain",
+      "weakness"
+    ],
     "precautions": [
       "Avoid NSAIDs",
       "Eat a soft bland diet",
@@ -1899,24 +1901,24 @@
       "Gentle walking: Only after stabilization",
       "Avoid abdominal strain: Prevent re-bleeding"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "blood in stool",
-      "changes in stool appearance",
-      "diarrhea",
-      "dizziness",
-      "fainting",
-      "melena",
-      "nausea",
-      "rectal bleeding",
-      "sharp abdominal pain",
-      "vomiting",
-      "vomiting blood",
-      "weakness"
-    ]
+    "symptom_count": 12
   },
   "gout": {
     "description": "Gout is a form of inflammatory arthritis caused by buildup of uric acid crystals in joints, leading to sudden, severe pain, redness, and swelling, often in the big toe.",
+    "symptoms": [
+      "foot or toe pain",
+      "joint pain",
+      "leg swelling",
+      "wrist pain",
+      "knee pain",
+      "ankle pain",
+      "ankle swelling",
+      "foot or toe swelling",
+      "knee swelling",
+      "wrist swelling",
+      "hand or finger pain",
+      "hand or finger swelling"
+    ],
     "precautions": [
       "Avoid purine-rich food",
       "Stay hydrated",
@@ -1943,24 +1945,23 @@
       "Avoid intense weight-bearing: During flare-ups",
       "Stretching: Reduce stiffness in affected areas"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "ankle pain",
-      "ankle swelling",
-      "foot or toe pain",
-      "foot or toe swelling",
-      "hand or finger pain",
-      "hand or finger swelling",
-      "joint pain",
-      "knee pain",
-      "knee swelling",
-      "leg swelling",
-      "wrist pain",
-      "wrist swelling"
-    ]
+    "symptom_count": 12
   },
   "gum disease": {
     "description": "Gum disease (periodontal disease) is an infection and inflammation of the gums and surrounding tissues, often caused by poor oral hygiene, leading to bleeding, receding gums, and tooth loss.",
+    "symptoms": [
+      "fever",
+      "toothache",
+      "mouth ulcer",
+      "jaw swelling",
+      "peripheral edema",
+      "bleeding gums",
+      "lip swelling",
+      "gum pain",
+      "ear pain",
+      "facial pain",
+      "pain in gums"
+    ],
     "precautions": [
       "Maintain oral hygiene",
       "Floss daily",
@@ -1987,23 +1988,23 @@
       "Stay hydrated: Supports gum health",
       "No specific physical activity restriction: Follow general wellness plan"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "bleeding gums",
-      "ear pain",
-      "facial pain",
-      "fever",
-      "gum pain",
-      "jaw swelling",
-      "lip swelling",
-      "mouth ulcer",
-      "pain in gums",
-      "peripheral edema",
-      "toothache"
-    ]
+    "symptom_count": 11
   },
   "heart attack": {
     "description": "A heart attack (myocardial infarction) occurs when blood flow to part of the heart is blocked, leading to chest pain, shortness of breath, nausea, and potentially life-threatening damage to heart muscle.",
+    "symptoms": [
+      "burning chest pain",
+      "shortness of breath",
+      "irregular heartbeat",
+      "fainting",
+      "increased heart rate",
+      "nausea",
+      "heartburn",
+      "chest tightness",
+      "sharp chest pain",
+      "sweating",
+      "arm pain"
+    ],
     "precautions": [
       "Take prescribed medication",
       "Avoid stress",
@@ -2030,23 +2031,23 @@
       "Stationary cycling: Low-impact cardio",
       "Avoid high-intensity training: Until medically cleared"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "arm pain",
-      "burning chest pain",
-      "chest tightness",
-      "fainting",
-      "heartburn",
-      "increased heart rate",
-      "irregular heartbeat",
-      "nausea",
-      "sharp chest pain",
-      "shortness of breath",
-      "sweating"
-    ]
+    "symptom_count": 11
   },
   "heart failure": {
     "description": "Heart failure is a condition where the heart can't pump blood effectively, leading to fatigue, shortness of breath, fluid retention, and reduced exercise capacity.",
+    "symptoms": [
+      "shortness of breath",
+      "difficulty breathing",
+      "weight gain",
+      "hurts to breath",
+      "leg swelling",
+      "cough",
+      "chest tightness",
+      "palpitations",
+      "sharp chest pain",
+      "weakness",
+      "fluid retention"
+    ],
     "precautions": [
       "Monitor fluid intake",
       "Follow low-sodium diet",
@@ -2073,23 +2074,23 @@
       "Breathing techniques: Improve oxygen efficiency",
       "Avoid dehydration or sudden exertion"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "chest tightness",
-      "cough",
-      "difficulty breathing",
-      "fluid retention",
-      "hurts to breath",
-      "leg swelling",
-      "palpitations",
-      "sharp chest pain",
-      "shortness of breath",
-      "weakness",
-      "weight gain"
-    ]
+    "symptom_count": 11
   },
   "hemorrhoids": {
     "description": "Hemorrhoids are swollen veins in the anus or rectum that cause pain, itching, bleeding, or discomfort during bowel movements.",
+    "symptoms": [
+      "melena",
+      "pain of the anus",
+      "blood in stool",
+      "constipation",
+      "heartburn",
+      "rectal bleeding",
+      "mass or swelling around the anus",
+      "lower body pain",
+      "changes in stool appearance",
+      "itching of the anus",
+      "sharp abdominal pain"
+    ],
     "precautions": [
       "Eat fiber-rich foods",
       "Avoid prolonged sitting",
@@ -2116,23 +2117,23 @@
       "Avoid heavy lifting: Prevent flare-ups",
       "Gentle yoga: Especially pelvic-friendly poses"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "blood in stool",
-      "changes in stool appearance",
-      "constipation",
-      "heartburn",
-      "itching of the anus",
-      "lower body pain",
-      "mass or swelling around the anus",
-      "melena",
-      "pain of the anus",
-      "rectal bleeding",
-      "sharp abdominal pain"
-    ]
+    "symptom_count": 11
   },
   "herniated disk": {
     "description": "A herniated disk occurs when the inner gel-like core of a spinal disc bulges out through a tear, pressing on nearby nerves and causing back pain, numbness, or weakness.",
+    "symptoms": [
+      "shoulder pain",
+      "leg weakness",
+      "arm pain",
+      "arm weakness",
+      "hip pain",
+      "loss of sensation",
+      "paresthesia",
+      "neck pain",
+      "leg pain",
+      "back pain",
+      "low back pain"
+    ],
     "precautions": [
       "Avoid lifting heavy items",
       "Follow physical therapy",
@@ -2158,23 +2159,24 @@
       "Core strengthening: Stabilizes back",
       "Avoid bending/twisting under load"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "arm pain",
-      "arm weakness",
-      "back pain",
-      "hip pain",
-      "leg pain",
-      "leg weakness",
-      "loss of sensation",
-      "low back pain",
-      "neck pain",
-      "paresthesia",
-      "shoulder pain"
-    ]
+    "symptom_count": 11
   },
   "hiatal hernia": {
     "description": "A hiatal hernia occurs when the upper part of the stomach pushes through the diaphragm into the chest cavity, often causing symptoms like heartburn, reflux, and chest pain.",
+    "symptoms": [
+      "dizziness",
+      "vomiting blood",
+      "nausea",
+      "upper abdominal pain",
+      "heartburn",
+      "sharp chest pain",
+      "burning abdominal pain",
+      "sharp abdominal pain",
+      "difficulty in swallowing",
+      "back pain",
+      "regurgitation.1",
+      "regurgitation"
+    ],
     "precautions": [
       "Eat small frequent meals",
       "Avoid lying down after eating",
@@ -2201,24 +2203,23 @@
       "Breathing exercises: Improve diaphragm control",
       "Upright posture: During and after exercise"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "back pain",
-      "burning abdominal pain",
-      "difficulty in swallowing",
-      "dizziness",
-      "heartburn",
-      "nausea",
-      "regurgitation",
-      "regurgitation.1",
-      "sharp abdominal pain",
-      "sharp chest pain",
-      "upper abdominal pain",
-      "vomiting blood"
-    ]
+    "symptom_count": 12
   },
   "hyperemesis gravidarum": {
     "description": "Hyperemesis gravidarum is a severe form of morning sickness in pregnancy, leading to persistent nausea, vomiting, dehydration, and weight loss.",
+    "symptoms": [
+      "headache",
+      "dizziness",
+      "vomiting blood",
+      "nausea",
+      "pain during pregnancy",
+      "diarrhea",
+      "problems during pregnancy",
+      "vomiting",
+      "burning abdominal pain",
+      "sharp abdominal pain",
+      "weakness"
+    ],
     "precautions": [
       "Eat small, frequent meals",
       "Stay hydrated",
@@ -2245,23 +2246,23 @@
       "Avoid fast movements: Prevent triggering symptoms",
       "Hydration breaks essential"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "burning abdominal pain",
-      "diarrhea",
-      "dizziness",
-      "headache",
-      "nausea",
-      "pain during pregnancy",
-      "problems during pregnancy",
-      "sharp abdominal pain",
-      "vomiting",
-      "vomiting blood",
-      "weakness"
-    ]
+    "symptom_count": 11
   },
   "hypertensive heart disease": {
     "description": "Hypertensive heart disease includes conditions caused by chronic high blood pressure, such as heart failure, thickened heart muscle, or coronary artery disease.",
+    "symptoms": [
+      "shortness of breath",
+      "recent pregnancy",
+      "difficulty breathing",
+      "leg swelling",
+      "heartburn",
+      "chest tightness",
+      "palpitations",
+      "insomnia",
+      "sharp chest pain",
+      "fatigue",
+      "weakness"
+    ],
     "precautions": [
       "Reduce salt intake",
       "Monitor blood pressure",
@@ -2288,23 +2289,24 @@
       "Breathing techniques: Reduce stress-induced spikes",
       "Avoid heavy lifting: Prevent blood pressure surges"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "chest tightness",
-      "difficulty breathing",
-      "fatigue",
-      "heartburn",
-      "insomnia",
-      "leg swelling",
-      "palpitations",
-      "recent pregnancy",
-      "sharp chest pain",
-      "shortness of breath",
-      "weakness"
-    ]
+    "symptom_count": 11
   },
   "hypoglycemia": {
     "description": "Hypoglycemia is a condition characterized by abnormally low blood sugar levels, often causing shakiness, sweating, confusion, irritability, or fainting, common in diabetics on insulin.",
+    "symptoms": [
+      "dizziness",
+      "abnormal involuntary movements",
+      "decreased appetite",
+      "feeling ill",
+      "depressive or psychotic symptoms",
+      "seizures",
+      "fainting",
+      "nausea",
+      "sleepiness",
+      "sweating",
+      "problems with movement",
+      "weakness"
+    ],
     "precautions": [
       "Eat small frequent meals",
       "Carry glucose tablets",
@@ -2331,24 +2333,23 @@
       "Avoid fasted workouts: Always eat before",
       "Frequent breaks: Monitor sugar levels during activity"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "abnormal involuntary movements",
-      "decreased appetite",
-      "depressive or psychotic symptoms",
-      "dizziness",
-      "fainting",
-      "feeling ill",
-      "nausea",
-      "problems with movement",
-      "seizures",
-      "sleepiness",
-      "sweating",
-      "weakness"
-    ]
+    "symptom_count": 12
   },
   "idiopathic excessive menstruation": {
     "description": "Idiopathic excessive menstruation refers to abnormally heavy or prolonged menstrual bleeding without an identifiable underlying medical cause.",
+    "symptoms": [
+      "unpredictable menstruation",
+      "heavy menstrual flow",
+      "intermenstrual bleeding",
+      "blood clots during menstrual periods",
+      "long menstrual periods",
+      "cramps and spasms",
+      "involuntary urination",
+      "painful menstruation",
+      "sharp abdominal pain",
+      "vaginal discharge",
+      "frequent menstruation"
+    ],
     "precautions": [
       "Use sanitary protection",
       "Monitor blood loss",
@@ -2375,23 +2376,23 @@
       "Pelvic floor workouts: Support reproductive organs",
       "Avoid intense cardio: Prevent symptom worsening"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "blood clots during menstrual periods",
-      "cramps and spasms",
-      "frequent menstruation",
-      "heavy menstrual flow",
-      "intermenstrual bleeding",
-      "involuntary urination",
-      "long menstrual periods",
-      "painful menstruation",
-      "sharp abdominal pain",
-      "unpredictable menstruation",
-      "vaginal discharge"
-    ]
+    "symptom_count": 11
   },
   "idiopathic irregular menstrual cycle": {
     "description": "Idiopathic irregular menstrual cycle refers to inconsistent or unpredictable menstrual periods without a clear medical cause, often linked to hormonal imbalance.",
+    "symptoms": [
+      "unpredictable menstruation",
+      "heavy menstrual flow",
+      "intermenstrual bleeding",
+      "infertility",
+      "long menstrual periods",
+      "cramps and spasms",
+      "pelvic pain",
+      "painful menstruation",
+      "lower abdominal pain",
+      "sharp abdominal pain",
+      "frequent menstruation"
+    ],
     "precautions": [
       "Keep menstrual diary",
       "Maintain healthy weight",
@@ -2418,23 +2419,23 @@
       "Strength training: Improves metabolic health",
       "Avoid excessive exercise: Can disrupt cycles"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "cramps and spasms",
-      "frequent menstruation",
-      "heavy menstrual flow",
-      "infertility",
-      "intermenstrual bleeding",
-      "long menstrual periods",
-      "lower abdominal pain",
-      "painful menstruation",
-      "pelvic pain",
-      "sharp abdominal pain",
-      "unpredictable menstruation"
-    ]
+    "symptom_count": 11
   },
   "idiopathic painful menstruation": {
     "description": "Idiopathic painful menstruation (primary dysmenorrhea) is severe menstrual cramping without an identifiable medical condition, often starting in adolescence.",
+    "symptoms": [
+      "unpredictable menstruation",
+      "heavy menstrual flow",
+      "vaginal itching",
+      "blood clots during menstrual periods",
+      "long menstrual periods",
+      "cramps and spasms",
+      "pelvic pain",
+      "painful menstruation",
+      "lower abdominal pain",
+      "sharp abdominal pain",
+      "vaginal discharge"
+    ],
     "precautions": [
       "Use heat pads",
       "Take antispasmodics/NSAIDs",
@@ -2461,23 +2462,24 @@
       "Heat therapy post-exercise: Relieves pain",
       "Avoid high-intensity workouts during pain spikes"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "blood clots during menstrual periods",
-      "cramps and spasms",
-      "heavy menstrual flow",
-      "long menstrual periods",
-      "lower abdominal pain",
-      "painful menstruation",
-      "pelvic pain",
-      "sharp abdominal pain",
-      "unpredictable menstruation",
-      "vaginal discharge",
-      "vaginal itching"
-    ]
+    "symptom_count": 11
   },
   "infectious gastroenteritis": {
     "description": "Infectious gastroenteritis is an intestinal infection caused by viruses, bacteria, or parasites, leading to symptoms like diarrhea, vomiting, abdominal cramps, and fever.",
+    "symptoms": [
+      "fever",
+      "headache",
+      "decreased appetite",
+      "nausea",
+      "blood in stool",
+      "chills",
+      "vomiting",
+      "diarrhea",
+      "burning abdominal pain",
+      "flu-like syndrome",
+      "sharp abdominal pain",
+      "fluid retention"
+    ],
     "precautions": [
       "Wash hands frequently",
       "Avoid sharing utensils",
@@ -2504,24 +2506,24 @@
       "Hydration focus: Replenish fluids before any activity",
       "Avoid strenuous exercise: Prevent worsening dehydration"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "blood in stool",
-      "burning abdominal pain",
-      "chills",
-      "decreased appetite",
-      "diarrhea",
-      "fever",
-      "flu-like syndrome",
-      "fluid retention",
-      "headache",
-      "nausea",
-      "sharp abdominal pain",
-      "vomiting"
-    ]
+    "symptom_count": 12
   },
   "injury to the arm": {
     "description": "Injury to the arm refers to damage to muscles, bones, ligaments, or skin in the arm area from trauma, leading to pain, swelling, bruising, or limited movement.",
+    "symptoms": [
+      "joint pain",
+      "arm swelling",
+      "wrist pain",
+      "bones are painful",
+      "loss of sensation",
+      "arm stiffness or tightness",
+      "wrist swelling",
+      "hand or finger pain",
+      "arm pain",
+      "elbow swelling",
+      "hand or finger swelling",
+      "elbow pain"
+    ],
     "precautions": [
       "Immobilize the arm",
       "Apply cold compress",
@@ -2548,24 +2550,24 @@
       "Isometric strengthening: Build muscles without movement",
       "Avoid overuse: Prioritize rest and pacing"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "arm pain",
-      "arm stiffness or tightness",
-      "arm swelling",
-      "bones are painful",
-      "elbow pain",
-      "elbow swelling",
-      "hand or finger pain",
-      "hand or finger swelling",
-      "joint pain",
-      "loss of sensation",
-      "wrist pain",
-      "wrist swelling"
-    ]
+    "symptom_count": 12
   },
   "injury to the leg": {
     "description": "Injury to the leg includes trauma to any part of the leg such as the thigh, knee, shin, or ankle, potentially involving muscles, bones, or ligaments.",
+    "symptoms": [
+      "foot or toe pain",
+      "leg swelling",
+      "ankle swelling",
+      "infant feeding problem",
+      "ankle pain",
+      "knee pain",
+      "foot or toe swelling",
+      "knee swelling",
+      "problems with movement",
+      "leg pain",
+      "knee stiffness or tightness",
+      "irregular appearing nails"
+    ],
     "precautions": [
       "Elevate the leg",
       "Apply ice packs",
@@ -2592,24 +2594,23 @@
       "Strength training: After healing starts",
       "Balance exercises: Reduce fall risk later"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "ankle pain",
-      "ankle swelling",
-      "foot or toe pain",
-      "foot or toe swelling",
-      "infant feeding problem",
-      "irregular appearing nails",
-      "knee pain",
-      "knee stiffness or tightness",
-      "knee swelling",
-      "leg pain",
-      "leg swelling",
-      "problems with movement"
-    ]
+    "symptom_count": 12
   },
   "injury to the trunk": {
     "description": "Injury to the trunk includes trauma to the chest, abdomen, or back areas, possibly involving internal organs, muscles, or bones, and can range from minor bruises to serious internal damage.",
+    "symptoms": [
+      "headache",
+      "rib pain",
+      "shoulder pain",
+      "lower body pain",
+      "wrist pain",
+      "bones are painful",
+      "sharp chest pain",
+      "back pain",
+      "neck pain",
+      "symptoms of the scrotum and testes",
+      "low back pain"
+    ],
     "precautions": [
       "Apply ice or heat",
       "Rest adequately",
@@ -2636,23 +2637,24 @@
       "Walking: Gentle activity for circulation",
       "Avoid twisting movements: Reduce risk of re-injury"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "back pain",
-      "bones are painful",
-      "headache",
-      "low back pain",
-      "lower body pain",
-      "neck pain",
-      "rib pain",
-      "sharp chest pain",
-      "shoulder pain",
-      "symptoms of the scrotum and testes",
-      "wrist pain"
-    ]
+    "symptom_count": 11
   },
   "liver disease": {
     "description": "Liver disease refers to a range of disorders affecting the liver, such as hepatitis, fatty liver, or cirrhosis, potentially causing jaundice, fatigue, and liver dysfunction.",
+    "symptoms": [
+      "shortness of breath",
+      "nausea",
+      "peripheral edema",
+      "upper abdominal pain",
+      "blood in stool",
+      "heartburn",
+      "side pain",
+      "unusual color or odor to urine",
+      "diarrhea",
+      "jaundice",
+      "sharp abdominal pain",
+      "weakness"
+    ],
     "precautions": [
       "Avoid alcohol",
       "Follow a liver-friendly diet",
@@ -2679,24 +2681,23 @@
       "Strength training (light): Improve muscle mass",
       "Avoid alcohol-based environments (gyms with bars etc.): Stay safe"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "blood in stool",
-      "diarrhea",
-      "heartburn",
-      "jaundice",
-      "nausea",
-      "peripheral edema",
-      "sharp abdominal pain",
-      "shortness of breath",
-      "side pain",
-      "unusual color or odor to urine",
-      "upper abdominal pain",
-      "weakness"
-    ]
+    "symptom_count": 12
   },
   "macular degeneration": {
     "description": "Macular degeneration is an eye disorder that damages the macula, the part of the retina responsible for central vision, leading to blurred or loss of central vision, typically in older adults.",
+    "symptoms": [
+      "itchiness of eye",
+      "diminished vision",
+      "bleeding from eye",
+      "spots or clouds in vision",
+      "lacrimation",
+      "blindness",
+      "abnormal movement of eyelid",
+      "symptoms of eye",
+      "pain in eye",
+      "foreign body sensation in eye",
+      "double vision"
+    ],
     "precautions": [
       "Wear sunglasses",
       "Eat leafy greens",
@@ -2723,23 +2724,24 @@
       "Indoor cycling: Safe with limited vision",
       "Avoid fast-paced movements: Prevent injuries"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abnormal movement of eyelid",
-      "bleeding from eye",
-      "blindness",
-      "diminished vision",
-      "double vision",
-      "foreign body sensation in eye",
-      "itchiness of eye",
-      "lacrimation",
-      "pain in eye",
-      "spots or clouds in vision",
-      "symptoms of eye"
-    ]
+    "symptom_count": 11
   },
   "marijuana abuse": {
     "description": "Marijuana abuse refers to the excessive or harmful use of cannabis, which can lead to cognitive impairment, altered judgment, addiction, and long-term mental health issues.",
+    "symptoms": [
+      "anxiety and nervousness",
+      "depressive or psychotic symptoms",
+      "difficulty speaking",
+      "depression",
+      "temper problems",
+      "low self-esteem",
+      "drug abuse",
+      "abusing alcohol",
+      "delusions or hallucinations",
+      "fears and phobias",
+      "hostile behavior",
+      "excessive anger"
+    ],
     "precautions": [
       "Avoid peer pressure",
       "Seek counseling",
@@ -2766,24 +2768,23 @@
       "Strength training: Rebuild physical health",
       "Group activities: Enhance social motivation and discipline"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "abusing alcohol",
-      "anxiety and nervousness",
-      "delusions or hallucinations",
-      "depression",
-      "depressive or psychotic symptoms",
-      "difficulty speaking",
-      "drug abuse",
-      "excessive anger",
-      "fears and phobias",
-      "hostile behavior",
-      "low self-esteem",
-      "temper problems"
-    ]
+    "symptom_count": 12
   },
   "multiple sclerosis": {
     "description": "Multiple sclerosis (MS) is an autoimmune disease where the immune system attacks the protective sheath of nerves, leading to weakness, vision problems, and coordination issues.",
+    "symptoms": [
+      "headache",
+      "dizziness",
+      "abnormal involuntary movements",
+      "problems with movement",
+      "leg weakness",
+      "focal weakness",
+      "disturbance of memory",
+      "loss of sensation",
+      "paresthesia",
+      "fatigue",
+      "weakness"
+    ],
     "precautions": [
       "Avoid overheating",
       "Follow medication schedule",
@@ -2810,23 +2811,24 @@
       "Stretching: Reduce stiffness",
       "Seated resistance training: Build strength safely"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abnormal involuntary movements",
-      "disturbance of memory",
-      "dizziness",
-      "fatigue",
-      "focal weakness",
-      "headache",
-      "leg weakness",
-      "loss of sensation",
-      "paresthesia",
-      "problems with movement",
-      "weakness"
-    ]
+    "symptom_count": 11
   },
   "noninfectious gastroenteritis": {
     "description": "Noninfectious gastroenteritis refers to inflammation of the stomach and intestines not caused by infection, but by irritants like medications, alcohol, or food intolerances.",
+    "symptoms": [
+      "headache",
+      "fever",
+      "decreased appetite",
+      "nausea",
+      "blood in stool",
+      "chills",
+      "rectal bleeding",
+      "vomiting",
+      "diarrhea",
+      "burning abdominal pain",
+      "sharp abdominal pain",
+      "fluid retention"
+    ],
     "precautions": [
       "Avoid irritant foods",
       "Stay hydrated",
@@ -2853,24 +2855,24 @@
       "Avoid abdominal strain: Prevent discomfort",
       "Hydration focus: Replace electrolytes"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "blood in stool",
-      "burning abdominal pain",
-      "chills",
-      "decreased appetite",
-      "diarrhea",
-      "fever",
-      "fluid retention",
-      "headache",
-      "nausea",
-      "rectal bleeding",
-      "sharp abdominal pain",
-      "vomiting"
-    ]
+    "symptom_count": 12
   },
   "nose disorder": {
     "description": "Nose disorders include structural or inflammatory issues such as deviated septum, nasal polyps, or rhinitis, causing congestion, breathing difficulty, or nosebleeds.",
+    "symptoms": [
+      "headache",
+      "coryza",
+      "fever",
+      "nosebleed",
+      "sore throat",
+      "difficulty breathing",
+      "cough",
+      "ear pain",
+      "sinus congestion",
+      "facial pain",
+      "nasal congestion",
+      "painful sinuses"
+    ],
     "precautions": [
       "Avoid nose picking",
       "Keep nasal passages moist",
@@ -2897,24 +2899,24 @@
       "Avoid inversion poses: Prevent sinus pressure",
       "Gentle cardio: Avoid dry, dusty air"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "coryza",
-      "cough",
-      "difficulty breathing",
-      "ear pain",
-      "facial pain",
-      "fever",
-      "headache",
-      "nasal congestion",
-      "nosebleed",
-      "painful sinuses",
-      "sinus congestion",
-      "sore throat"
-    ]
+    "symptom_count": 12
   },
   "obstructive sleep apnea (osa)": {
     "description": "OSA is a sleep disorder where the throat muscles intermittently relax and block the airway, causing repeated pauses in breathing during sleep and leading to poor rest and fatigue.",
+    "symptoms": [
+      "shortness of breath",
+      "abnormal involuntary movements",
+      "difficulty breathing",
+      "weight gain",
+      "apnea",
+      "mouth dryness",
+      "abnormal breathing sounds",
+      "sleepiness",
+      "insomnia",
+      "sweating",
+      "fatigue",
+      "difficulty in swallowing"
+    ],
     "precautions": [
       "Maintain healthy weight",
       "Use CPAP machine if prescribed",
@@ -2941,24 +2943,23 @@
       "Yoga: Improve breathing and sleep quality",
       "Avoid late-night workouts: Prevent sleep disruption"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "abnormal breathing sounds",
-      "abnormal involuntary movements",
-      "apnea",
-      "difficulty breathing",
-      "difficulty in swallowing",
-      "fatigue",
-      "insomnia",
-      "mouth dryness",
-      "shortness of breath",
-      "sleepiness",
-      "sweating",
-      "weight gain"
-    ]
+    "symptom_count": 12
   },
   "otitis externa (swimmer's ear)": {
     "description": "Otitis externa is an infection of the outer ear canal, often due to trapped water and bacteria, leading to ear pain, itching, swelling, and discharge.",
+    "symptoms": [
+      "sore throat",
+      "fever",
+      "plugged feeling in ear",
+      "fluid in ear",
+      "ringing in ear",
+      "diminished hearing",
+      "cough",
+      "ear pain",
+      "itchy ear(s)",
+      "facial pain",
+      "redness in ear"
+    ],
     "precautions": [
       "Dry ears after swimming",
       "Avoid inserting objects into ears",
@@ -2985,23 +2986,23 @@
       "Indoor cycling: Avoid moisture exposure",
       "Protect ears: Use dry earplugs during workouts"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "cough",
-      "diminished hearing",
-      "ear pain",
-      "facial pain",
-      "fever",
-      "fluid in ear",
-      "itchy ear(s)",
-      "plugged feeling in ear",
-      "redness in ear",
-      "ringing in ear",
-      "sore throat"
-    ]
+    "symptom_count": 11
   },
   "otitis media": {
     "description": "Otitis media is a middle ear infection that commonly affects children, causing ear pain, fever, irritability, and sometimes fluid discharge from the ear.",
+    "symptoms": [
+      "sore throat",
+      "fever",
+      "coryza",
+      "plugged feeling in ear",
+      "fluid in ear",
+      "diminished hearing",
+      "cough",
+      "ear pain",
+      "vomiting",
+      "pulling at ears",
+      "nasal congestion"
+    ],
     "precautions": [
       "Avoid water entering ears",
       "Take antibiotics as prescribed",
@@ -3028,23 +3029,23 @@
       "Light walking: If energy permits",
       "Neck stretches: Relieve ear canal pressure"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "coryza",
-      "cough",
-      "diminished hearing",
-      "ear pain",
-      "fever",
-      "fluid in ear",
-      "nasal congestion",
-      "plugged feeling in ear",
-      "pulling at ears",
-      "sore throat",
-      "vomiting"
-    ]
+    "symptom_count": 11
   },
   "pain after an operation": {
     "description": "Pain after an operation (postoperative pain) is discomfort or soreness at the surgical site, which may be due to tissue injury, inflammation, or healing processes.",
+    "symptoms": [
+      "headache",
+      "neck pain",
+      "nausea",
+      "side pain",
+      "vomiting",
+      "sharp chest pain",
+      "lower abdominal pain",
+      "leg pain",
+      "sharp abdominal pain",
+      "back pain",
+      "low back pain"
+    ],
     "precautions": [
       "Take pain meds as prescribed",
       "Avoid physical strain",
@@ -3071,23 +3072,23 @@
       "Slow walking: Improves circulation",
       "Avoid high-intensity activity: Allow full healing"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "back pain",
-      "headache",
-      "leg pain",
-      "low back pain",
-      "lower abdominal pain",
-      "nausea",
-      "neck pain",
-      "sharp abdominal pain",
-      "sharp chest pain",
-      "side pain",
-      "vomiting"
-    ]
+    "symptom_count": 11
   },
   "panic disorder": {
     "description": "Panic disorder is a mental health condition marked by sudden, unexpected panic attacks—intense periods of fear or discomfort—often accompanied by physical symptoms like chest pain, rapid heartbeat, shortness of breath, or dizziness.",
+    "symptoms": [
+      "anxiety and nervousness",
+      "dizziness",
+      "shortness of breath",
+      "abnormal involuntary movements",
+      "depressive or psychotic symptoms",
+      "irregular heartbeat",
+      "depression",
+      "breathing fast",
+      "chest tightness",
+      "palpitations",
+      "insomnia"
+    ],
     "precautions": [
       "Practice deep breathing",
       "Avoid caffeine",
@@ -3114,23 +3115,23 @@
       "Mindfulness meditation: Helps reduce anxiety by staying present",
       "Regular aerobic exercise: Boosts mood and reduces stress"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abnormal involuntary movements",
-      "anxiety and nervousness",
-      "breathing fast",
-      "chest tightness",
-      "depression",
-      "depressive or psychotic symptoms",
-      "dizziness",
-      "insomnia",
-      "irregular heartbeat",
-      "palpitations",
-      "shortness of breath"
-    ]
+    "symptom_count": 11
   },
   "pelvic inflammatory disease": {
     "description": "Pelvic inflammatory disease (PID) is an infection of the female reproductive organs, often caused by sexually transmitted bacteria, leading to abdominal pain, fever, and abnormal discharge.",
+    "symptoms": [
+      "intermenstrual bleeding",
+      "nausea",
+      "back pain",
+      "vomiting",
+      "pelvic pain",
+      "burning abdominal pain",
+      "suprapubic pain",
+      "lower abdominal pain",
+      "sharp abdominal pain",
+      "vaginal discharge",
+      "painful urination"
+    ],
     "precautions": [
       "Complete full course of antibiotics",
       "Avoid sexual activity during treatment",
@@ -3157,23 +3158,24 @@
       "Avoid high-impact sports: Prevent discomfort",
       "Gentle yoga: Pelvic-friendly movements"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "back pain",
-      "burning abdominal pain",
-      "intermenstrual bleeding",
-      "lower abdominal pain",
-      "nausea",
-      "painful urination",
-      "pelvic pain",
-      "sharp abdominal pain",
-      "suprapubic pain",
-      "vaginal discharge",
-      "vomiting"
-    ]
+    "symptom_count": 11
   },
   "peripheral nerve disorder": {
     "description": "Peripheral nerve disorders affect the nerves outside the brain and spinal cord, leading to numbness, weakness, pain, or coordination problems.",
+    "symptoms": [
+      "dizziness",
+      "paresthesia",
+      "abnormal involuntary movements",
+      "foot or toe pain",
+      "leg weakness",
+      "arm pain",
+      "arm weakness",
+      "disturbance of memory",
+      "loss of sensation",
+      "problems with movement",
+      "leg pain",
+      "back pain"
+    ],
     "precautions": [
       "Avoid repetitive injury",
       "Use ergonomic tools",
@@ -3199,24 +3201,23 @@
       "Stretching: Maintain flexibility",
       "Swimming: Low-impact full-body option"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "abnormal involuntary movements",
-      "arm pain",
-      "arm weakness",
-      "back pain",
-      "disturbance of memory",
-      "dizziness",
-      "foot or toe pain",
-      "leg pain",
-      "leg weakness",
-      "loss of sensation",
-      "paresthesia",
-      "problems with movement"
-    ]
+    "symptom_count": 12
   },
   "personality disorder": {
     "description": "Personality disorders are mental health conditions involving rigid and unhealthy patterns of thinking, functioning, and behaving that impair social or occupational life.",
+    "symptoms": [
+      "anxiety and nervousness",
+      "depression",
+      "depressive or psychotic symptoms",
+      "low self-esteem",
+      "temper problems",
+      "insomnia",
+      "drug abuse",
+      "delusions or hallucinations",
+      "fears and phobias",
+      "hostile behavior",
+      "excessive anger"
+    ],
     "precautions": [
       "Follow psychotherapy plan",
       "Avoid substance use",
@@ -3243,23 +3244,24 @@
       "Yoga or tai chi: Promote mindfulness",
       "Supervised fitness coaching: Builds discipline and trust"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "anxiety and nervousness",
-      "delusions or hallucinations",
-      "depression",
-      "depressive or psychotic symptoms",
-      "drug abuse",
-      "excessive anger",
-      "fears and phobias",
-      "hostile behavior",
-      "insomnia",
-      "low self-esteem",
-      "temper problems"
-    ]
+    "symptom_count": 11
   },
   "pneumonia": {
     "description": "Pneumonia is an infection of the lungs caused by bacteria, viruses, or fungi, resulting in cough, fever, chest pain, and difficulty breathing due to inflammation and fluid in the lungs.",
+    "symptoms": [
+      "sore throat",
+      "coryza",
+      "fever",
+      "shortness of breath",
+      "difficulty breathing",
+      "cough",
+      "chills",
+      "vomiting",
+      "sharp chest pain",
+      "nasal congestion",
+      "wheezing",
+      "weakness"
+    ],
     "precautions": [
       "Take full course of antibiotics",
       "Avoid smoking",
@@ -3286,24 +3288,23 @@
       "Gentle walking: After fever subsides",
       "Gradual reintroduction to physical activity: To build endurance"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "chills",
-      "coryza",
-      "cough",
-      "difficulty breathing",
-      "fever",
-      "nasal congestion",
-      "sharp chest pain",
-      "shortness of breath",
-      "sore throat",
-      "vomiting",
-      "weakness",
-      "wheezing"
-    ]
+    "symptom_count": 12
   },
   "problem during pregnancy": {
     "description": "Problems during pregnancy refer to medical complications such as gestational diabetes, preeclampsia, or fetal growth restriction that can affect the health of the mother or baby during gestation.",
+    "symptoms": [
+      "headache",
+      "spotting or bleeding during pregnancy",
+      "nausea",
+      "pain during pregnancy",
+      "cramps and spasms",
+      "vomiting",
+      "pelvic pain",
+      "problems during pregnancy",
+      "lower abdominal pain",
+      "sharp abdominal pain",
+      "back pain"
+    ],
     "precautions": [
       "Attend regular prenatal visits",
       "Avoid alcohol and smoking",
@@ -3330,23 +3331,23 @@
       "Pelvic tilts: Strengthen core muscles",
       "Kegel exercises: Support pelvic health"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "back pain",
-      "cramps and spasms",
-      "headache",
-      "lower abdominal pain",
-      "nausea",
-      "pain during pregnancy",
-      "pelvic pain",
-      "problems during pregnancy",
-      "sharp abdominal pain",
-      "spotting or bleeding during pregnancy",
-      "vomiting"
-    ]
+    "symptom_count": 11
   },
   "psoriasis": {
     "description": "Psoriasis is a chronic autoimmune skin condition causing rapid skin cell growth that results in thick, scaly, red patches, often on the elbows, knees, or scalp.",
+    "symptoms": [
+      "itching of skin",
+      "skin swelling",
+      "skin rash",
+      "joint pain",
+      "skin dryness, peeling, scaliness, or roughness",
+      "skin lesion",
+      "itchy scalp",
+      "skin moles",
+      "abnormal appearing skin",
+      "irregular appearing scalp",
+      "skin growth"
+    ],
     "precautions": [
       "Keep skin moisturized",
       "Avoid triggers like stress",
@@ -3373,26 +3374,23 @@
       "Stretching and yoga: Gentle on skin",
       "Avoid hot/sweaty environments: Prevent flare-ups"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abnormal appearing skin",
-      "irregular appearing scalp",
-      "itching of skin",
-      "itchy scalp",
-      "joint pain",
-      "skin dryness",
-      " peeling",
-      " scaliness",
-      " or roughness",
-      "skin growth",
-      "skin lesion",
-      "skin moles",
-      "skin rash",
-      "skin swelling"
-    ]
+    "symptom_count": 11
   },
   "pyogenic skin infection": {
     "description": "A pyogenic skin infection is a bacterial infection of the skin that produces pus, such as abscesses, boils, or cellulitis, often caused by Staphylococcus aureus.",
+    "symptoms": [
+      "foot or toe pain",
+      "skin swelling",
+      "skin rash",
+      "skin lesion",
+      "leg swelling",
+      "peripheral edema",
+      "abnormal appearing skin",
+      "foot or toe swelling",
+      "hand or finger pain",
+      "leg pain",
+      "hand or finger swelling"
+    ],
     "precautions": [
       "Keep wound clean and dry",
       "Avoid scratching",
@@ -3419,23 +3417,23 @@
       "Stretching at home: Avoid sweating on infected skin",
       "Use clean towels: Hygiene is key"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abnormal appearing skin",
-      "foot or toe pain",
-      "foot or toe swelling",
-      "hand or finger pain",
-      "hand or finger swelling",
-      "leg pain",
-      "leg swelling",
-      "peripheral edema",
-      "skin lesion",
-      "skin rash",
-      "skin swelling"
-    ]
+    "symptom_count": 11
   },
   "rectal disorder": {
     "description": "Rectal disorders include conditions affecting the rectum such as hemorrhoids, fissures, or prolapse, often causing pain, bleeding, or difficulty during bowel movements.",
+    "symptoms": [
+      "melena",
+      "pain of the anus",
+      "blood in stool",
+      "constipation",
+      "heartburn",
+      "rectal bleeding",
+      "cramps and spasms",
+      "diarrhea",
+      "burning abdominal pain",
+      "itching of the anus",
+      "sharp abdominal pain"
+    ],
     "precautions": [
       "Eat a high-fiber diet",
       "Drink plenty of water",
@@ -3462,23 +3460,23 @@
       "Avoid cycling: Prevent irritation",
       "Gentle yoga: Focus on posture and breathing"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "blood in stool",
-      "burning abdominal pain",
-      "constipation",
-      "cramps and spasms",
-      "diarrhea",
-      "heartburn",
-      "itching of the anus",
-      "melena",
-      "pain of the anus",
-      "rectal bleeding",
-      "sharp abdominal pain"
-    ]
+    "symptom_count": 11
   },
   "schizophrenia": {
     "description": "Schizophrenia is a severe psychiatric disorder involving distortions in thinking, perception, emotions, language, and behavior, often with hallucinations or delusions.",
+    "symptoms": [
+      "anxiety and nervousness",
+      "excessive anger",
+      "hysterical behavior",
+      "depression",
+      "depressive or psychotic symptoms",
+      "temper problems",
+      "insomnia",
+      "delusions or hallucinations",
+      "fears and phobias",
+      "hostile behavior",
+      "low self-esteem"
+    ],
     "precautions": [
       "Adhere to medication",
       "Avoid substance abuse",
@@ -3505,23 +3503,23 @@
       "Tai chi: Improves focus and calm",
       "Avoid sensory overload: Choose quiet environments"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "anxiety and nervousness",
-      "delusions or hallucinations",
-      "depression",
-      "depressive or psychotic symptoms",
-      "excessive anger",
-      "fears and phobias",
-      "hostile behavior",
-      "hysterical behavior",
-      "insomnia",
-      "low self-esteem",
-      "temper problems"
-    ]
+    "symptom_count": 11
   },
   "seasonal allergies (hay fever)": {
     "description": "Seasonal allergies, or hay fever, are allergic reactions to airborne allergens like pollen, causing sneezing, nasal congestion, itchy eyes, and throat irritation, often during specific seasons.",
+    "symptoms": [
+      "sore throat",
+      "headache",
+      "coryza",
+      "itchiness of eye",
+      "frontal headache",
+      "cough",
+      "ear pain",
+      "lacrimation",
+      "allergic reaction",
+      "nasal congestion",
+      "sneezing"
+    ],
     "precautions": [
       "Keep windows closed during high pollen",
       "Shower after being outdoors",
@@ -3548,23 +3546,23 @@
       "Treadmill walking: Allergy-safe cardio",
       "Wear a mask outdoors: If walking outside"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "allergic reaction",
-      "coryza",
-      "cough",
-      "ear pain",
-      "frontal headache",
-      "headache",
-      "itchiness of eye",
-      "lacrimation",
-      "nasal congestion",
-      "sneezing",
-      "sore throat"
-    ]
+    "symptom_count": 11
   },
   "sebaceous cyst": {
     "description": "A sebaceous cyst is a noncancerous bump beneath the skin, filled with oily material, often caused by blocked sebaceous glands.",
+    "symptoms": [
+      "acne or pimples",
+      "skin swelling",
+      "back mass or lump",
+      "skin lesion",
+      "hand or finger lump or mass",
+      "neck mass",
+      "skin moles",
+      "abnormal appearing skin",
+      "irregular appearing scalp",
+      "skin growth",
+      "arm lump or mass"
+    ],
     "precautions": [
       "Keep area clean",
       "Avoid squeezing",
@@ -3590,23 +3588,23 @@
       "Walking or yoga: With non-abrasive clothing",
       "Avoid helmets/hats if cyst is on scalp"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abnormal appearing skin",
-      "acne or pimples",
-      "arm lump or mass",
-      "back mass or lump",
-      "hand or finger lump or mass",
-      "irregular appearing scalp",
-      "neck mass",
-      "skin growth",
-      "skin lesion",
-      "skin moles",
-      "skin swelling"
-    ]
+    "symptom_count": 11
   },
   "sepsis": {
     "description": "Sepsis is a life-threatening response to infection where the body’s immune system causes widespread inflammation, leading to tissue damage, organ failure, and possibly death.",
+    "symptoms": [
+      "fever",
+      "shortness of breath",
+      "decreased appetite",
+      "difficulty breathing",
+      "feeling ill",
+      "cough",
+      "chills",
+      "vomiting",
+      "suprapubic pain",
+      "sharp abdominal pain",
+      "weakness"
+    ],
     "precautions": [
       "Seek urgent medical care",
       "Follow antibiotic regimen",
@@ -3633,23 +3631,23 @@
       "Physical therapy: Restore strength",
       "Avoid overexertion: Recovery can be long-term"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "chills",
-      "cough",
-      "decreased appetite",
-      "difficulty breathing",
-      "feeling ill",
-      "fever",
-      "sharp abdominal pain",
-      "shortness of breath",
-      "suprapubic pain",
-      "vomiting",
-      "weakness"
-    ]
+    "symptom_count": 11
   },
   "sickle cell crisis": {
     "description": "Sickle cell crisis is a painful episode in people with sickle cell disease, where misshapen red blood cells block blood flow, causing severe pain, fatigue, and potential organ damage.",
+    "symptoms": [
+      "arm pain",
+      "ache all over",
+      "hip pain",
+      "knee pain",
+      "vomiting",
+      "sharp chest pain",
+      "burning abdominal pain",
+      "leg pain",
+      "sharp abdominal pain",
+      "back pain",
+      "low back pain"
+    ],
     "precautions": [
       "Stay hydrated",
       "Avoid extreme temperatures",
@@ -3676,23 +3674,23 @@
       "Low-intensity stretching: Once stable",
       "Avoid high altitudes: Prevent oxygen drop"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "ache all over",
-      "arm pain",
-      "back pain",
-      "burning abdominal pain",
-      "hip pain",
-      "knee pain",
-      "leg pain",
-      "low back pain",
-      "sharp abdominal pain",
-      "sharp chest pain",
-      "vomiting"
-    ]
+    "symptom_count": 11
   },
   "sinus bradycardia": {
     "description": "Sinus bradycardia is a slower than normal heart rate originating from the sinus node, which may be normal in athletes or caused by medications or medical conditions.",
+    "symptoms": [
+      "dizziness",
+      "shortness of breath",
+      "feeling ill",
+      "irregular heartbeat",
+      "fainting",
+      "increased heart rate",
+      "decreased heart rate",
+      "chest tightness",
+      "palpitations",
+      "sharp chest pain",
+      "weakness"
+    ],
     "precautions": [
       "Avoid excessive physical strain",
       "Regular cardiac monitoring",
@@ -3719,23 +3717,23 @@
       "Breathing exercises: Support heart rhythm",
       "Avoid overexertion: Monitor heart rate"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "chest tightness",
-      "decreased heart rate",
-      "dizziness",
-      "fainting",
-      "feeling ill",
-      "increased heart rate",
-      "irregular heartbeat",
-      "palpitations",
-      "sharp chest pain",
-      "shortness of breath",
-      "weakness"
-    ]
+    "symptom_count": 11
   },
   "skin pigmentation disorder": {
     "description": "Skin pigmentation disorders involve changes in skin color due to excess or lack of melanin, such as vitiligo, melasma, or hyperpigmentation.",
+    "symptoms": [
+      "itching of skin",
+      "warts",
+      "acne or pimples",
+      "skin swelling",
+      "skin rash",
+      "skin dryness, peeling, scaliness, or roughness",
+      "skin lesion",
+      "skin moles",
+      "abnormal appearing skin",
+      "irregular appearing scalp",
+      "skin growth"
+    ],
     "precautions": [
       "Use sunscreen daily",
       "Avoid skin irritants",
@@ -3762,26 +3760,23 @@
       "Yoga: Gentle and non-irritating",
       "Hydration: Helps skin health"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abnormal appearing skin",
-      "acne or pimples",
-      "irregular appearing scalp",
-      "itching of skin",
-      "skin dryness",
-      " peeling",
-      " scaliness",
-      " or roughness",
-      "skin growth",
-      "skin lesion",
-      "skin moles",
-      "skin rash",
-      "skin swelling",
-      "warts"
-    ]
+    "symptom_count": 11
   },
   "skin polyp": {
     "description": "A skin polyp (skin tag) is a small, benign growth of skin that typically appears in areas where skin rubs together, like the neck, armpits, or groin.",
+    "symptoms": [
+      "itching of skin",
+      "skin growth",
+      "warts",
+      "acne or pimples",
+      "skin swelling",
+      "skin dryness, peeling, scaliness, or roughness",
+      "skin lesion",
+      "skin moles",
+      "abnormal appearing skin",
+      "irregular appearing scalp",
+      "skin irritation"
+    ],
     "precautions": [
       "Avoid irritation or injury to area",
       "Monitor size and appearance",
@@ -3808,26 +3803,24 @@
       "Gentle yoga or walking",
       "Monitor any changes during workout routines"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abnormal appearing skin",
-      "acne or pimples",
-      "irregular appearing scalp",
-      "itching of skin",
-      "skin dryness",
-      " peeling",
-      " scaliness",
-      " or roughness",
-      "skin growth",
-      "skin irritation",
-      "skin lesion",
-      "skin moles",
-      "skin swelling",
-      "warts"
-    ]
+    "symptom_count": 11
   },
   "spinal stenosis": {
     "description": "Spinal stenosis is the narrowing of the spinal canal, often due to arthritis or disc problems, leading to back pain, numbness, and weakness in the legs.",
+    "symptoms": [
+      "headache",
+      "problems with movement",
+      "shoulder pain",
+      "lower body pain",
+      "leg pain",
+      "hip pain",
+      "loss of sensation",
+      "paresthesia",
+      "neck pain",
+      "arm pain",
+      "back pain",
+      "low back pain"
+    ],
     "precautions": [
       "Avoid high-impact activities",
       "Use walking support",
@@ -3854,24 +3847,24 @@
       "Water therapy: Buoyant support",
       "Avoid arching or extension exercises: Prevent nerve irritation"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "arm pain",
-      "back pain",
-      "headache",
-      "hip pain",
-      "leg pain",
-      "loss of sensation",
-      "low back pain",
-      "lower body pain",
-      "neck pain",
-      "paresthesia",
-      "problems with movement",
-      "shoulder pain"
-    ]
+    "symptom_count": 12
   },
   "spondylosis": {
     "description": "Spondylosis is a degenerative condition affecting the spine due to aging, resulting in stiffness, pain, and reduced mobility due to wear and tear on spinal discs and joints.",
+    "symptoms": [
+      "shoulder pain",
+      "arm pain",
+      "lower body pain",
+      "ache all over",
+      "hip pain",
+      "knee pain",
+      "loss of sensation",
+      "paresthesia",
+      "neck pain",
+      "leg pain",
+      "back pain",
+      "low back pain"
+    ],
     "precautions": [
       "Maintain good posture",
       "Exercise regularly",
@@ -3898,24 +3891,24 @@
       "Tai chi or yoga: Low-impact balance and movement",
       "Avoid high-impact sports: Prevent joint stress"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "ache all over",
-      "arm pain",
-      "back pain",
-      "hip pain",
-      "knee pain",
-      "leg pain",
-      "loss of sensation",
-      "low back pain",
-      "lower body pain",
-      "neck pain",
-      "paresthesia",
-      "shoulder pain"
-    ]
+    "symptom_count": 12
   },
   "spontaneous abortion": {
     "description": "Spontaneous abortion (miscarriage) is the loss of a pregnancy before 20 weeks, often due to genetic issues or unknown causes, and may involve bleeding and cramping.",
+    "symptoms": [
+      "heavy menstrual flow",
+      "intermenstrual bleeding",
+      "blood clots during menstrual periods",
+      "spotting or bleeding during pregnancy",
+      "pain during pregnancy",
+      "cramps and spasms",
+      "pelvic pain",
+      "problems during pregnancy",
+      "burning abdominal pain",
+      "lower abdominal pain",
+      "sharp abdominal pain",
+      "uterine contractions"
+    ],
     "precautions": [
       "Take emotional support",
       "Rest adequately",
@@ -3942,24 +3935,24 @@
       "Yoga: Calms the nervous system",
       "Avoid strenuous exercise: Until cleared by doctor"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "blood clots during menstrual periods",
-      "burning abdominal pain",
-      "cramps and spasms",
-      "heavy menstrual flow",
-      "intermenstrual bleeding",
-      "lower abdominal pain",
-      "pain during pregnancy",
-      "pelvic pain",
-      "problems during pregnancy",
-      "sharp abdominal pain",
-      "spotting or bleeding during pregnancy",
-      "uterine contractions"
-    ]
+    "symptom_count": 12
   },
   "sprain or strain": {
     "description": "A sprain is a stretched or torn ligament, while a strain is a stretched or torn muscle or tendon; both cause pain, swelling, and limited movement.",
+    "symptoms": [
+      "headache",
+      "neck pain",
+      "foot or toe pain",
+      "shoulder pain",
+      "arm pain",
+      "wrist pain",
+      "knee pain",
+      "ankle pain",
+      "hand or finger pain",
+      "leg pain",
+      "back pain",
+      "low back pain"
+    ],
     "precautions": [
       "Rest the area",
       "Apply ice packs",
@@ -3986,24 +3979,24 @@
       "Avoid re-injury: Use supports if needed",
       "Rehabilitation-focused strength training"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "ankle pain",
-      "arm pain",
-      "back pain",
-      "foot or toe pain",
-      "hand or finger pain",
-      "headache",
-      "knee pain",
-      "leg pain",
-      "low back pain",
-      "neck pain",
-      "shoulder pain",
-      "wrist pain"
-    ]
+    "symptom_count": 12
   },
   "strep throat": {
     "description": "Strep throat is a bacterial throat infection caused by Streptococcus pyogenes, leading to sore throat, fever, swollen glands, and red tonsils with white patches.",
+    "symptoms": [
+      "headache",
+      "sore throat",
+      "fever",
+      "decreased appetite",
+      "skin rash",
+      "ache all over",
+      "chills",
+      "cough",
+      "ear pain",
+      "vomiting",
+      "nasal congestion",
+      "difficulty in swallowing"
+    ],
     "precautions": [
       "Complete full antibiotic course",
       "Avoid sharing utensils",
@@ -4030,24 +4023,23 @@
       "Walking: Gradually after symptoms ease",
       "Hydration and vocal rest after workouts"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "ache all over",
-      "chills",
-      "cough",
-      "decreased appetite",
-      "difficulty in swallowing",
-      "ear pain",
-      "fever",
-      "headache",
-      "nasal congestion",
-      "skin rash",
-      "sore throat",
-      "vomiting"
-    ]
+    "symptom_count": 12
   },
   "stye": {
     "description": "A stye is a red, painful lump near the edge of the eyelid caused by a bacterial infection of an oil gland, often resolving on its own or with warm compresses.",
+    "symptoms": [
+      "itchiness of eye",
+      "eyelid swelling",
+      "symptoms of eye",
+      "eye burns or stings",
+      "skin swelling",
+      "swollen eye",
+      "mass on eyelid",
+      "eyelid lesion or rash",
+      "abnormal appearing skin",
+      "eye redness",
+      "pain in eye"
+    ],
     "precautions": [
       "Apply warm compress",
       "Avoid touching or squeezing",
@@ -4074,23 +4066,24 @@
       "Clean face post-exercise: Prevent infection",
       "Avoid hot yoga: May worsen swelling"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "abnormal appearing skin",
-      "eye burns or stings",
-      "eye redness",
-      "eyelid lesion or rash",
-      "eyelid swelling",
-      "itchiness of eye",
-      "mass on eyelid",
-      "pain in eye",
-      "skin swelling",
-      "swollen eye",
-      "symptoms of eye"
-    ]
+    "symptom_count": 11
   },
   "temporary or benign blood in urine": {
     "description": "Temporary or benign hematuria is the presence of blood in the urine without a serious underlying cause, sometimes triggered by exercise, medications, or mild infections.",
+    "symptoms": [
+      "suprapubic pain",
+      "retention of urine",
+      "frequent urination",
+      "symptoms of bladder",
+      "involuntary urination",
+      "painful urination",
+      "lower abdominal pain",
+      "sharp abdominal pain",
+      "blood in urine",
+      "back pain",
+      "regurgitation.1",
+      "regurgitation"
+    ],
     "precautions": [
       "Stay hydrated",
       "Avoid strenuous activity",
@@ -4117,24 +4110,23 @@
       "Avoid heavy lifting: Prevent internal pressure",
       "Gentle stretching: Support circulation"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "back pain",
-      "blood in urine",
-      "frequent urination",
-      "involuntary urination",
-      "lower abdominal pain",
-      "painful urination",
-      "regurgitation",
-      "regurgitation.1",
-      "retention of urine",
-      "sharp abdominal pain",
-      "suprapubic pain",
-      "symptoms of bladder"
-    ]
+    "symptom_count": 12
   },
   "threatened pregnancy": {
     "description": "A threatened pregnancy refers to early pregnancy complications, such as vaginal bleeding or cramping, that may suggest a risk of miscarriage but with a still viable fetus.",
+    "symptoms": [
+      "intermenstrual bleeding",
+      "blood clots during menstrual periods",
+      "spotting or bleeding during pregnancy",
+      "cramps and spasms",
+      "pelvic pain",
+      "problems during pregnancy",
+      "back pain",
+      "lower abdominal pain",
+      "sharp abdominal pain",
+      "vaginal discharge",
+      "uterine contractions"
+    ],
     "precautions": [
       "Take prescribed medications",
       "Avoid stress and lifting heavy items",
@@ -4161,23 +4153,23 @@
       "\"Pelvic floor (Kegel) exercises: Safe for pelvic support\"",
       "\"Avoid high-impact workouts: Prevent complications\"]"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "back pain",
-      "blood clots during menstrual periods",
-      "cramps and spasms",
-      "intermenstrual bleeding",
-      "lower abdominal pain",
-      "pelvic pain",
-      "problems during pregnancy",
-      "sharp abdominal pain",
-      "spotting or bleeding during pregnancy",
-      "uterine contractions",
-      "vaginal discharge"
-    ]
+    "symptom_count": 11
   },
   "urinary tract infection": {
     "description": "A urinary tract infection (UTI) is an infection in any part of the urinary system, commonly the bladder, causing pain during urination, urgency, and cloudy or strong-smelling urine.",
+    "symptoms": [
+      "suprapubic pain",
+      "fever",
+      "retention of urine",
+      "nausea",
+      "frequent urination",
+      "side pain",
+      "vomiting",
+      "painful urination",
+      "lower abdominal pain",
+      "blood in urine",
+      "back pain"
+    ],
     "precautions": [
       "Drink plenty of fluids",
       "Urinate after sex",
@@ -4204,23 +4196,24 @@
       "Hydration-focused workouts",
       "Pelvic floor exercises: Strengthen urinary control"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "back pain",
-      "blood in urine",
-      "fever",
-      "frequent urination",
-      "lower abdominal pain",
-      "nausea",
-      "painful urination",
-      "retention of urine",
-      "side pain",
-      "suprapubic pain",
-      "vomiting"
-    ]
+    "symptom_count": 11
   },
   "vaginal cyst": {
     "description": "A vaginal cyst is a fluid-filled sac that forms along the vaginal wall, often benign and asymptomatic, but can sometimes cause discomfort or pain if enlarged or infected.",
+    "symptoms": [
+      "heavy menstrual flow",
+      "intermenstrual bleeding",
+      "blood clots during menstrual periods",
+      "spotting or bleeding during pregnancy",
+      "vaginal pain",
+      "pain during pregnancy",
+      "cramps and spasms",
+      "pelvic pain",
+      "problems during pregnancy",
+      "lower abdominal pain",
+      "sharp abdominal pain",
+      "vaginal discharge"
+    ],
     "precautions": [
       "Maintain genital hygiene",
       "Avoid tight clothing",
@@ -4247,24 +4240,23 @@
       "Walking: Safe and light activity",
       "Breathing exercises: Promote general relaxation"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "blood clots during menstrual periods",
-      "cramps and spasms",
-      "heavy menstrual flow",
-      "intermenstrual bleeding",
-      "lower abdominal pain",
-      "pain during pregnancy",
-      "pelvic pain",
-      "problems during pregnancy",
-      "sharp abdominal pain",
-      "spotting or bleeding during pregnancy",
-      "vaginal discharge",
-      "vaginal pain"
-    ]
+    "symptom_count": 12
   },
   "vaginitis": {
     "description": "Vaginitis is inflammation of the vaginal tissue, typically caused by infections (bacterial, fungal, or parasitic), hormonal imbalances, or irritants, resulting in discharge, itching, pain, or burning during urination.",
+    "symptoms": [
+      "suprapubic pain",
+      "vaginal redness",
+      "pain during intercourse",
+      "vaginal itching",
+      "vaginal pain",
+      "pain during pregnancy",
+      "pelvic pain",
+      "painful urination",
+      "lower abdominal pain",
+      "sharp abdominal pain",
+      "vaginal discharge"
+    ],
     "precautions": [
       "Wear breathable cotton underwear",
       "Avoid douching",
@@ -4291,23 +4283,24 @@
       "Use cotton underwear: Helps keep area dry and breathable",
       "Maintain hygiene: Prevent infections"
     ],
-    "symptom_count": 11,
-    "symptoms": [
-      "lower abdominal pain",
-      "pain during intercourse",
-      "pain during pregnancy",
-      "painful urination",
-      "pelvic pain",
-      "sharp abdominal pain",
-      "suprapubic pain",
-      "vaginal discharge",
-      "vaginal itching",
-      "vaginal pain",
-      "vaginal redness"
-    ]
+    "symptom_count": 11
   },
   "vulvodynia": {
     "description": "Vulvodynia is chronic pain or discomfort around the opening of the vagina (vulva) with no identifiable cause, often described as burning, stinging, or irritation.",
+    "symptoms": [
+      "nausea",
+      "vaginal pain",
+      "pain during pregnancy",
+      "side pain",
+      "cramps and spasms",
+      "pelvic pain",
+      "burning abdominal pain",
+      "painful urination",
+      "lower abdominal pain",
+      "sharp abdominal pain",
+      "back pain",
+      "vaginal discharge"
+    ],
     "precautions": [
       "Wear loose cotton clothing",
       "Avoid scented products",
@@ -4334,20 +4327,6 @@
       "Breathing techniques: Help with stress-linked flares",
       "Avoid bike riding: Prevent pressure on sensitive area"
     ],
-    "symptom_count": 12,
-    "symptoms": [
-      "back pain",
-      "burning abdominal pain",
-      "cramps and spasms",
-      "lower abdominal pain",
-      "nausea",
-      "pain during pregnancy",
-      "painful urination",
-      "pelvic pain",
-      "sharp abdominal pain",
-      "side pain",
-      "vaginal discharge",
-      "vaginal pain"
-    ]
+    "symptom_count": 12
   }
 }

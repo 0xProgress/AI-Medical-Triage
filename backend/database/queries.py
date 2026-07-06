@@ -146,6 +146,9 @@ def find_diseases_by_symptoms(
     limit: int = 10,
     exclude_symptoms: List[str] = None
 ) -> List[Tuple[str, int, float]]:
+    """
+    Find diseases matching given symptoms using the single table structure.
+    """
     if not symptoms:
         return []
     
@@ -165,29 +168,56 @@ def find_diseases_by_symptoms(
         conn.close()
         return []
     
-    symptom_placeholders = ','.join('?' * len(normalized_symptoms))
+    # Build dynamic query to search in symptoms JSON
+    like_conditions = []
+    params = []
+    
+    for symptom in normalized_symptoms:
+        # Search for symptom in the symptoms JSON field
+        like_conditions.append("d.symptoms LIKE ?")
+        params.append(f'%{symptom}%')
+    
+    where_clause = " OR ".join(like_conditions)
     
     query = f"""
     SELECT 
         d.name,
-        COUNT(ds.symptom_id) as matches,
-        ROUND(COUNT(ds.symptom_id) * 100.0 / d.symptom_count, 2) as match_percentage
+        d.symptoms,
+        d.symptom_count
     FROM diseases d
-    JOIN disease_symptoms ds ON d.id = ds.disease_id
-    JOIN symptoms s ON ds.symptom_id = s.id
-    WHERE s.name IN ({symptom_placeholders})
-    GROUP BY d.id, d.name, d.symptom_count
-    HAVING matches > 0
-    ORDER BY matches DESC, match_percentage DESC
+    WHERE {where_clause}
+    ORDER BY d.symptom_count DESC
     LIMIT ?
     """
     
-    params = normalized_symptoms + [limit]
+    params.append(limit * 2)  # Get more results for accurate scoring
     cursor.execute(query, params)
     results = cursor.fetchall()
-    conn.close()
     
-    return results
+    # Calculate match scores
+    scored_results = []
+    for name, symptoms_json, total_symptoms in results:
+        try:
+            disease_symptoms = json.loads(symptoms_json) if symptoms_json else []
+        except:
+            disease_symptoms = []
+        
+        # Count matching symptoms
+        matches = 0
+        for symptom in normalized_symptoms:
+            if any(symptom in ds.lower() or ds.lower() in symptom 
+                   for ds in disease_symptoms):
+                matches += 1
+        
+        if matches > 0:
+            match_percentage = round(matches * 100.0 / total_symptoms, 2) if total_symptoms > 0 else 0
+            scored_results.append((name, matches, match_percentage))
+    
+    # Sort by matches desc, then by percentage desc
+    scored_results.sort(key=lambda x: (x[1], x[2]), reverse=True)
+    
+    conn.close()
+    return scored_results[:limit]
 
 def check_red_flags(symptoms: List[str]) -> List[str]:
     """Uses AI to determine if symptoms are TRUE medical red flags."""
@@ -280,24 +310,24 @@ def _fallback_red_flag_check(symptoms: List[str]) -> List[str]:
     return list(set(detected))
 
 def get_disease_details(disease_name: str) -> Optional[Dict]:
+    """
+    Get complete disease details from single table.
+    """
     conn = get_connection()
     cursor = conn.cursor()
     
     cursor.execute("""
     SELECT 
-        d.name,
-        d.description,
-        d.precautions,
-        d.medications,
-        d.diet,
-        d.workouts,
-        d.symptom_count,
-        GROUP_CONCAT(s.name) as symptoms
-    FROM diseases d
-    LEFT JOIN disease_symptoms ds ON d.id = ds.disease_id
-    LEFT JOIN symptoms s ON ds.symptom_id = s.id
-    WHERE d.name = ?
-    GROUP BY d.id
+        name,
+        description,
+        symptoms,
+        precautions,
+        medications,
+        diet,
+        workouts,
+        symptom_count
+    FROM diseases
+    WHERE name = ?
     """, (disease_name,))
     
     row = cursor.fetchone()
@@ -306,20 +336,23 @@ def get_disease_details(disease_name: str) -> Optional[Dict]:
     if not row:
         return None
     
-    name, description, precautions, medications, diet, workouts, symptom_count, symptoms_str = row
+    name, description, symptoms_str, precautions_str, medications_str, diet_str, workouts_str, symptom_count = row
     
     return {
         'name': name,
         'description': description or '',
-        'precautions': json.loads(precautions) if precautions else [],
-        'medications': json.loads(medications) if medications else [],
-        'diet': json.loads(diet) if diet else [],
-        'workouts': json.loads(workouts) if workouts else [],
-        'symptom_count': symptom_count,
-        'symptoms': symptoms_str.split(',') if symptoms_str else []
+        'symptoms': json.loads(symptoms_str) if symptoms_str else [],
+        'precautions': json.loads(precautions_str) if precautions_str else [],
+        'medications': json.loads(medications_str) if medications_str else [],
+        'diet': json.loads(diet_str) if diet_str else [],
+        'workouts': json.loads(workouts_str) if workouts_str else [],
+        'symptom_count': symptom_count
     }
 
 def get_diseases_batch(disease_names: List[str]) -> List[Dict]:
+    """
+    Get details for multiple diseases at once from single table.
+    """
     if not disease_names:
         return []
     
@@ -330,19 +363,16 @@ def get_diseases_batch(disease_names: List[str]) -> List[Dict]:
     
     cursor.execute(f"""
     SELECT 
-        d.name,
-        d.description,
-        d.precautions,
-        d.medications,
-        d.diet,
-        d.workouts,
-        d.symptom_count,
-        GROUP_CONCAT(s.name) as symptoms
-    FROM diseases d
-    LEFT JOIN disease_symptoms ds ON d.id = ds.disease_id
-    LEFT JOIN symptoms s ON ds.symptom_id = s.id
-    WHERE d.name IN ({placeholders})
-    GROUP BY d.id
+        name,
+        description,
+        symptoms,
+        precautions,
+        medications,
+        diet,
+        workouts,
+        symptom_count
+    FROM diseases
+    WHERE name IN ({placeholders})
     """, disease_names)
     
     rows = cursor.fetchall()
@@ -350,21 +380,24 @@ def get_diseases_batch(disease_names: List[str]) -> List[Dict]:
     
     results = []
     for row in rows:
-        name, description, precautions, medications, diet, workouts, symptom_count, symptoms_str = row
+        name, description, symptoms_str, precautions_str, medications_str, diet_str, workouts_str, symptom_count = row
         results.append({
             'name': name,
             'description': description or '',
-            'precautions': json.loads(precautions) if precautions else [],
-            'medications': json.loads(medications) if medications else [],
-            'diet': json.loads(diet) if diet else [],
-            'workouts': json.loads(workouts) if workouts else [],
-            'symptom_count': symptom_count,
-            'symptoms': symptoms_str.split(',') if symptoms_str else []
+            'symptoms': json.loads(symptoms_str) if symptoms_str else [],
+            'precautions': json.loads(precautions_str) if precautions_str else [],
+            'medications': json.loads(medications_str) if medications_str else [],
+            'diet': json.loads(diet_str) if diet_str else [],
+            'workouts': json.loads(workouts_str) if workouts_str else [],
+            'symptom_count': symptom_count
         })
     
     return results
 
 def search_diseases(query: str, limit: int = 10) -> List[Dict]:
+    """
+    Search diseases by name or description in single table.
+    """
     conn = get_connection()
     cursor = conn.cursor()
     
@@ -386,14 +419,30 @@ def search_diseases(query: str, limit: int = 10) -> List[Dict]:
     return results
 
 def get_all_symptoms() -> List[str]:
+    """
+    Extract all unique symptoms from the diseases table.
+    """
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT name FROM symptoms ORDER BY name")
-    results = [row[0] for row in cursor.fetchall()]
+    
+    cursor.execute("SELECT symptoms FROM diseases")
+    rows = cursor.fetchall()
+    
+    all_symptoms = set()
+    for (symptoms_json,) in rows:
+        try:
+            symptoms_list = json.loads(symptoms_json) if symptoms_json else []
+            all_symptoms.update(symptoms_list)
+        except:
+            pass
+    
     conn.close()
-    return results
+    return sorted(list(all_symptoms))
 
 def get_disease_count() -> int:
+    """
+    Get total number of diseases in single table.
+    """
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT COUNT(*) FROM diseases")
@@ -402,52 +451,69 @@ def get_disease_count() -> int:
     return count
 
 def get_symptoms_for_disease(disease_name: str) -> List[str]:
+    """
+    Get symptoms for a specific disease from single table.
+    """
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("""
-    SELECT s.name
-    FROM symptoms s
-    JOIN disease_symptoms ds ON s.id = ds.symptom_id
-    JOIN diseases d ON ds.disease_id = d.id
-    WHERE d.name = ?
-    """, (disease_name,))
-    results = [row[0] for row in cursor.fetchall()]
+    
+    cursor.execute("SELECT symptoms FROM diseases WHERE name = ?", (disease_name,))
+    row = cursor.fetchone()
     conn.close()
-    return results
+    
+    if row and row[0]:
+        try:
+            return json.loads(row[0])
+        except:
+            return []
+    return []
 
 def find_related_symptoms(symptom: str, limit: int = 10) -> List[Tuple[str, float]]:
+    """
+    Find symptoms that commonly co-occur with the given symptom.
+    Modified for single table structure.
+    """
     conn = get_connection()
     cursor = conn.cursor()
     
     symptom = normalize_symptom(symptom)
     
+    # Get all diseases that have this symptom
     cursor.execute("""
-    SELECT 
-        s2.name,
-        COUNT(DISTINCT d.id) as co_occurrence,
-        ROUND(COUNT(DISTINCT d.id) * 100.0 / (
-            SELECT COUNT(DISTINCT d3.id)
-            FROM diseases d3
-            JOIN disease_symptoms ds3 ON d3.id = ds3.disease_id
-            JOIN symptoms s3 ON ds3.symptom_id = s3.id
-            WHERE s3.name = ?
-        ), 2) as co_occurrence_percentage
-    FROM symptoms s1
-    JOIN disease_symptoms ds1 ON s1.id = ds1.symptom_id
-    JOIN diseases d ON ds1.disease_id = d.id
-    JOIN disease_symptoms ds2 ON d.id = ds2.disease_id
-    JOIN symptoms s2 ON ds2.symptom_id = s2.id
-    WHERE s1.name = ? AND s2.name != ?
-    GROUP BY s2.id, s2.name
-    ORDER BY co_occurrence DESC
-    LIMIT ?
-    """, (symptom, symptom, symptom, limit))
+    SELECT symptoms FROM diseases WHERE symptoms LIKE ?
+    """, (f'%{symptom}%',))
     
-    results = cursor.fetchall()
+    rows = cursor.fetchall()
+    
+    # Count co-occurrences
+    co_occurrence_count = {}
+    total_diseases_with_symptom = len(rows)
+    
+    for (symptoms_json,) in rows:
+        try:
+            disease_symptoms = json.loads(symptoms_json) if symptoms_json else []
+            for ds in disease_symptoms:
+                if ds.lower() != symptom.lower():
+                    co_occurrence_count[ds] = co_occurrence_count.get(ds, 0) + 1
+        except:
+            pass
+    
+    # Calculate percentages and sort
+    results = []
+    for sym, count in co_occurrence_count.items():
+        if total_diseases_with_symptom > 0:
+            percentage = round(count * 100.0 / total_diseases_with_symptom, 2)
+            results.append((sym, percentage))
+    
+    results.sort(key=lambda x: x[1], reverse=True)
+    
     conn.close()
-    return results
+    return results[:limit]
 
 def get_urgency_level(disease_name: str) -> str:
+    """
+    Determine urgency level based on disease details.
+    """
     urgency_keywords = {
         "high": ["emergency", "acute", "severe", "life-threatening", "critical", "urgent", "immediate"],
         "medium": ["moderate", "requires", "treatment", "medical", "consult"],
@@ -466,3 +532,32 @@ def get_urgency_level(disease_name: str) -> str:
                 return level
     
     return "medium"
+
+def get_disease_by_symptom_count(min_symptoms: int = None, max_symptoms: int = None) -> List[Dict]:
+    """
+    Get diseases filtered by symptom count.
+    New helper function for single table structure.
+    """
+    conn = get_connection()
+    cursor = conn.cursor()
+    
+    query = "SELECT name, description, symptom_count FROM diseases WHERE 1=1"
+    params = []
+    
+    if min_symptoms is not None:
+        query += " AND symptom_count >= ?"
+        params.append(min_symptoms)
+    
+    if max_symptoms is not None:
+        query += " AND symptom_count <= ?"
+        params.append(max_symptoms)
+    
+    query += " ORDER BY symptom_count DESC"
+    
+    cursor.execute(query, params)
+    results = [
+        {'name': row[0], 'description': row[1], 'symptom_count': row[2]}
+        for row in cursor.fetchall()
+    ]
+    conn.close()
+    return results
