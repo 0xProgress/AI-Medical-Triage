@@ -15,12 +15,13 @@ class QwenClient:
             "Content-Type": "application/json"
         }
     
-    async def generate(self, messages: List[Dict[str, str]]) -> str:
+    async def generate(self, messages: List[Dict[str, str]], temperature: float = None) -> str:
+        """Generate response with optional temperature override"""
         payload = {
             "model": self.model,
             "messages": messages,
             "max_tokens": self.max_tokens,
-            "temperature": self.temperature,
+            "temperature": temperature if temperature is not None else self.temperature,
             "stream": False
         }
         
@@ -44,98 +45,193 @@ class QwenClient:
                 return ""
     
     async def extract_symptoms(self, user_message: str) -> List[str]:
+        """
+        Extract symptoms with STRICT anti-hallucination measures.
+        Only extracts symptoms EXPLICITLY mentioned by the user.
+        """
+        prompt = f"""EXTRACT SYMPTOMS - STRICT RULES:
+
+ONLY extract symptoms that are EXPLICITLY stated in the user's message.
+DO NOT add, infer, or assume ANY symptoms.
+DO NOT include body parts unless mentioned as problematic.
+DO NOT infer "head injury" from "I fell" or "I tripped".
+DO NOT infer "concussion" from any context.
+DO NOT add common related symptoms.
+
+User message: "{user_message}"
+
+List ONLY the symptoms explicitly mentioned. If none, say "NONE".
+
+Symptoms (comma-separated):"""
+
         messages = [
-            {"role": "system", "content": "You are a medical symptom extractor. Extract symptoms from user messages. Return only a comma-separated list of symptoms."},
-            {"role": "user", "content": f"Extract medical symptoms from this text: {user_message}"}
-        ]
-        
-        response = await self.generate(messages)
-        symptoms = [s.strip().lower() for s in response.split(",") if s.strip()]
-        return symptoms
-    
-    async def generate_follow_up(self, symptoms: List[str], current_conditions: List[Dict]) -> str:
-        conditions_text = "\n".join([
-            f"- {c.get('name', 'Unknown')}: {c.get('match_percentage', 0)}% match"
-            for c in current_conditions[:5]
-        ])
-        
-        prompt = f"""Based on the following symptoms and potential conditions, ask ONE clarifying question to help differentiate between the conditions.
-
-    Symptoms: {', '.join(symptoms)}
-
-    Potential Conditions:
-    {conditions_text}
-
-    Ask a specific yes/no question that would help distinguish between these conditions. For example, if Strep throat and Esophagitis are both possible, ask about fever, white patches, or acid reflux.
-
-    Clarifying Question:"""
-        
-        messages = [
-            {"role": "system", "content": "You are a medical triage assistant. Ask clarifying questions to narrow down conditions and differentiate between similar diagnoses."},
+            {
+                "role": "system", 
+                "content": "You are a STRICT medical symptom extractor. NEVER infer or assume symptoms. ONLY extract what is explicitly stated. Be extremely conservative."
+            },
             {"role": "user", "content": prompt}
         ]
         
-        response = await self.generate(messages)
-        return response.strip()
+        try:
+            response = await self.generate(messages, temperature=0.1)  # Lower temperature for more precise extraction
+            
+            if "NONE" in response.upper():
+                return []
+            
+            symptoms = [s.strip().lower() for s in response.split(",") if s.strip()]
+            
+            # Validate symptoms against the original message
+            validated = self._validate_symptoms(symptoms, user_message)
+            
+            if len(validated) < len(symptoms):
+                rejected = set(symptoms) - set(validated)
+                print(f"HALLUCINATION DETECTED: Rejected symptoms: {rejected}")
+            
+            return validated
+            
+        except Exception as e:
+            print(f"Symptom extraction failed: {e}")
+            return []
+    
+    def _validate_symptoms(self, extracted: List[str], original_message: str) -> List[str]:
+        """
+        Validate that extracted symptoms appear in the original message.
+        Prevents AI hallucination of symptoms.
+        """
+        validated = []
+        message_lower = original_message.lower()
+        message_words = set(message_lower.split())
+        
+        # Symptoms that should NEVER be inferred
+        NEVER_INFER = [
+            "head injury", "concussion", "brain damage", "skull fracture",
+            "loss of consciousness", "seizure", "stroke", "heart attack",
+            "internal bleeding", "organ failure", "paralysis"
+        ]
+        
+        for symptom in extracted:
+            symptom_lower = symptom.lower()
+            
+            # Skip symptoms that should never be inferred
+            if symptom_lower in NEVER_INFER and symptom_lower not in message_lower:
+                continue
+            
+            # Check if symptom is directly in message
+            if symptom_lower in message_lower:
+                validated.append(symptom)
+                continue
+            
+            # Check if key words of symptom appear in message
+            symptom_words = symptom_lower.split()
+            significant_words = [w for w in symptom_words if len(w) > 3]
+            
+            if significant_words:
+                # If all significant words appear in message, accept it
+                if all(word in message_words for word in significant_words):
+                    validated.append(symptom)
+                    continue
+                
+                # If at least half the significant words appear, accept it
+                matching_words = sum(1 for w in significant_words if w in message_words)
+                if matching_words >= len(significant_words) / 2:
+                    validated.append(symptom)
+                    continue
+        
+        return validated
+    
+    async def generate_follow_up(self, symptoms: List[str], current_conditions: List[Dict]) -> str:
+        """
+        Generate a follow-up question that doesn't lead or hallucinate symptoms.
+        """
+        if not current_conditions:
+            return "Could you describe your symptoms in more detail?"
+        
+        conditions_text = "\n".join([
+            f"- {c.get('name', 'Unknown')}: {c.get('match_percentage', 0)}% match"
+            for c in current_conditions[:3]
+        ])
+        
+        prompt = f"""GENERATE ONE FOLLOW-UP QUESTION:
 
-    def _generate_smart_follow_up(self, symptoms: List[str], matches: List) -> str:
-        """
-        Generate a follow-up question using database-driven symptom differentiation
-        instead of always calling the LLM. Falls back to LLM only when needed.
-        """
-        if not symptoms or not matches:
-            return "Could you describe your symptoms in more detail? Please mention any pain, discomfort, or changes you're experiencing."
-        
-        top_disease_names = [m[0] for m in matches[:3]]
-        all_symptoms_db = set(get_all_symptoms())
-        current_symptoms = set(symptoms)
-        
-        differentiating_symptoms = []
-        for disease_name in top_disease_names:
-            disease_symptoms = get_disease_details(disease_name)
-            if disease_symptoms and disease_symptoms.get('symptoms'):
-                for ds in disease_symptoms['symptoms']:
-                    ds_lower = ds.strip().lower()
-                    if ds_lower not in current_symptoms and ds_lower in all_symptoms_db:
-                        differentiating_symptoms.append(ds_lower)
-        
-        for symptom in symptoms[:3]:
-            related = find_related_symptoms(symptom, limit=5)
-            for rel_name, rel_score in related:
-                if rel_name not in current_symptoms and rel_name not in differentiating_symptoms:
-                    differentiating_symptoms.append(rel_name)
-        
-        unique_diff = list(dict.fromkeys(differentiating_symptoms))[:5]
-        
-        if unique_diff and len(unique_diff) >= 2:
-            symptom_options = unique_diff[:3]
-            question = f"To help narrow things down, are you also experiencing any of these: {', '.join(symptom_options)}?"
-            return question
-        
-        if unique_diff:
-            question = f"One more thing — are you experiencing {unique_diff[0]}?"
-            return question
+Reported symptoms: {', '.join(symptoms) if symptoms else 'none'}
+
+Potential conditions being considered:
+{conditions_text}
+
+RULES FOR THE QUESTION:
+- Ask about symptom CHARACTERISTICS (onset, severity, duration, triggers)
+- Ask about TIMING (when did it start, how long does it last)
+- Ask about RELIEVING/AGGRAVATING factors
+- NEVER suggest symptoms the user hasn't mentioned
+- NEVER ask "Do you also have X?" where X is a new symptom
+- NEVER assume injuries (e.g., don't ask about head injury if user just said they fell)
+
+GOOD examples:
+- "When did your symptoms start?"
+- "On a scale of 1-10, how severe is your pain?"
+- "Does anything make your symptoms better or worse?"
+
+BAD examples (DO NOT USE):
+- "Did you hit your head when you fell?"
+- "Are you also experiencing dizziness?"
+- "Do you have a fever as well?"
+
+Question:"""
+
+        messages = [
+            {
+                "role": "system", 
+                "content": "You are a medical triage assistant. Ask NEUTRAL, NON-LEADING questions about symptom characteristics. NEVER suggest new symptoms."
+            },
+            {"role": "user", "content": prompt}
+        ]
         
         try:
-            condition_dicts = []
-            disease_details = get_diseases_batch(top_disease_names)
-            for match in matches[:3]:
-                name, count, pct = match
-                detail = next((d for d in disease_details if d['name'] == name), None)
-                condition_dicts.append({
-                    'name': name,
-                    'match_percentage': float(pct)
-                })
+            response = await self.generate(messages, temperature=0.3)
+            response = response.strip()
             
-            llm_question = qwen_client.generate_follow_up_sync(symptoms, condition_dicts)
-            if llm_question and len(llm_question) > 10:
-                return llm_question
-        except Exception:
-            pass
+            # Filter out obviously bad questions
+            bad_patterns = [
+                "did you hit", "have you hit", "did you fall on",
+                "did you also", "are you also", "do you also have",
+                "are you experiencing", "have you been experiencing"
+            ]
+            
+            for pattern in bad_patterns:
+                if pattern in response.lower():
+                    # Replace with neutral question
+                    return "Could you describe when your symptoms started and what makes them better or worse?"
+            
+            return response
+            
+        except Exception as e:
+            print(f"Follow-up generation failed: {e}")
+            return "Could you tell me more about your symptoms?"
+    
+    def generate_follow_up_sync(self, symptoms: List[str], condition_dicts: List[Dict]) -> str:
+        """Synchronous version of generate_follow_up"""
+        import asyncio
         
-        return "Could you tell me more about your symptoms? Any other changes you've noticed?"
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                import concurrent.futures
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    future = executor.submit(
+                        asyncio.run, 
+                        self.generate_follow_up(symptoms, condition_dicts)
+                    )
+                    return future.result()
+            else:
+                return loop.run_until_complete(
+                    self.generate_follow_up(symptoms, condition_dicts)
+                )
+        except Exception as e:
+            print(f"Sync follow-up failed: {e}")
+            return "Could you describe your symptoms in more detail?"
     
     async def rank_conditions(self, symptoms: List[str], matches: List[Dict]) -> List[Dict]:
+        """Rank conditions by likelihood based on reported symptoms"""
         if not matches:
             return []
         
@@ -144,37 +240,50 @@ class QwenClient:
             for m in matches[:10]
         ])
         
-        messages = [
-            {"role": "system", "content": "You are a medical triage assistant. Rank conditions by likelihood."},
-            {"role": "user", "content": f"""Rank the following potential conditions by likelihood based on the reported symptoms.
+        prompt = f"""RANK CONDITIONS BY LIKELIHOOD:
 
-Symptoms: {', '.join(symptoms)}
+Reported symptoms: {', '.join(symptoms)}
 
-Potential Conditions:
+Conditions to rank:
 {matches_text}
 
-Return only the condition names in order of likelihood, separated by commas.
+Rank based ONLY on the reported symptoms. Return condition names in order of likelihood, comma-separated.
 
-Ranking:"""}
+Ranking:"""
+        
+        messages = [
+            {"role": "system", "content": "Rank medical conditions based on symptom matches. Be objective and evidence-based."},
+            {"role": "user", "content": prompt}
         ]
         
-        response = await self.generate(messages)
-        ranked_names = [name.strip() for name in response.split(",") if name.strip()]
-        
-        ranked_matches = []
-        for name in ranked_names:
+        try:
+            response = await self.generate(messages, temperature=0.1)
+            ranked_names = [name.strip() for name in response.split(",") if name.strip()]
+            
+            # Reorder matches based on ranking
+            ranked_matches = []
+            for name in ranked_names:
+                for match in matches:
+                    if match.get('name', '').lower() == name.lower():
+                        ranked_matches.append(match)
+                        break
+            
+            # Add any remaining matches
             for match in matches:
-                if match.get('name', '').lower() == name.lower():
+                if match not in ranked_matches:
                     ranked_matches.append(match)
-                    break
-        
-        for match in matches:
-            if match not in ranked_matches:
-                ranked_matches.append(match)
-        
-        return ranked_matches
+            
+            return ranked_matches
+            
+        except Exception as e:
+            print(f"Ranking failed: {e}")
+            return matches
     
     async def check_red_flags(self, symptoms: List[str]) -> List[str]:
+        """
+        Check for red flag symptoms in the extracted symptoms list.
+        Only flags symptoms actually present in the list.
+        """
         red_flag_symptoms = [
             "chest pain",
             "difficulty breathing",
@@ -182,45 +291,110 @@ Ranking:"""}
             "severe bleeding",
             "loss of consciousness",
             "seizure",
-            "stroke",
+            "stroke symptoms",
             "severe allergic reaction",
-            "suicidal",
-            "head injury",
+            "suicidal thoughts",
             "severe headache",
             "confusion",
-            "fainting"
+            "fainting",
+            "blood in vomit",
+            "blood in stool",
+            "severe abdominal pain"
         ]
         
         detected = []
         for symptom in symptoms:
+            symptom_lower = symptom.lower()
             for flag in red_flag_symptoms:
-                if flag in symptom or symptom in flag:
+                if flag in symptom_lower or symptom_lower in flag:
                     detected.append(flag)
         
         return list(set(detected))
     
     async def generate_summary(self, conversation: List[Dict], conditions: List[Dict]) -> str:
-        conditions_text = "\n".join([
-            f"- {c.get('name', 'Unknown')}: {c.get('description', 'No description available')[:100]}..."
-            for c in conditions[:3]
-        ])
+        """
+        Generate a summary that ONLY references actually reported symptoms.
+        """
+        # Extract only user messages and their symptoms
+        user_messages = [msg.get('content', '') for msg in conversation if msg.get('role') == 'user']
+        reported_content = ' '.join(user_messages)
         
-        messages = [
-            {"role": "system", "content": "You are a medical triage assistant. Generate patient summaries."},
-            {"role": "user", "content": f"""Generate a concise medical summary based on the conversation and top conditions.
+        conditions_text = "\n".join([
+            f"- {c.get('name', 'Unknown')} ({c.get('match_percentage', 0)}% match): {c.get('description', '')[:150]}"
+            for c in conditions[:3]
+        ]) if conditions else "No conditions identified"
+        
+        prompt = f"""GENERATE A MEDICAL TRIAGE SUMMARY:
 
-Top Conditions:
+STRICT RULES:
+1. ONLY reference symptoms EXPLICITLY mentioned by the user
+2. DO NOT add, infer, or assume any symptoms not stated
+3. If the user said "I fell and hurt my knee", DO NOT mention "head injury"
+4. Base your summary ONLY on the reported information below
+
+User's reported information:
+{reported_content}
+
+Top matching conditions:
 {conditions_text}
 
-Provide a brief summary that includes:
-1. The main symptoms reported
+Generate a concise summary (3-4 sentences) that includes:
+1. What symptoms the user ACTUALLY reported
 2. The most likely condition(s)
-3. Recommended next steps
+3. General recommendation to consult a healthcare provider
 
-Summary:"""}
+Summary:"""
+
+        messages = [
+            {
+                "role": "system", 
+                "content": "You are a conservative medical summarizer. ONLY use information explicitly provided. NEVER add or assume symptoms. Be factual and cautious."
+            },
+            {"role": "user", "content": prompt}
         ]
         
-        response = await self.generate(messages)
-        return response.strip()
+        try:
+            response = await self.generate(messages, temperature=0.2)
+            
+            # Validate summary doesn't contain hallucinated symptoms
+            summary_lower = response.lower()
+            
+            # Check for common hallucinations
+            hallucination_checks = [
+                ("head injury", ["fell", "fall", "slipped", "tripped"]),
+                ("concussion", ["fell", "fall", "hit"]),
+                ("unconscious", ["fell", "fall"]),
+            ]
+            
+            for term, triggers in hallucination_checks:
+                if term in summary_lower:
+                    # Check if any trigger words are in the original message
+                    trigger_found = any(t in reported_content.lower() for t in triggers)
+                    term_mentioned = term in reported_content.lower()
+                    
+                    if trigger_found and not term_mentioned:
+                        print(f"HALLUCINATION IN SUMMARY: '{term}' was not in original message")
+                        # Replace the summary with a safe version
+                        return self._generate_safe_summary(conditions, reported_content)
+            
+            return response.strip()
+            
+        except Exception as e:
+            print(f"Summary generation failed: {e}")
+            return self._generate_safe_summary(conditions, reported_content)
+    
+    def _generate_safe_summary(self, conditions: List[Dict], reported_content: str) -> str:
+        """Generate a safe summary without AI to prevent hallucination"""
+        if not conditions:
+            return "Based on the symptoms you reported, no specific condition could be identified. Please consult a healthcare provider for a proper evaluation."
+        
+        top_condition = conditions[0]
+        condition_name = top_condition.get('name', 'Unknown')
+        
+        return (
+            f"Based on the symptoms you reported, the most likely condition is {condition_name}. "
+            "Please consult a healthcare provider for a proper diagnosis and treatment plan. "
+            "This is not a medical diagnosis and should not replace professional medical advice."
+        )
 
 qwen_client = QwenClient()
