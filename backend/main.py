@@ -33,6 +33,24 @@ app.add_middleware(
 
 REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
+@app.on_event("startup")
+async def startup_event():
+    """Build database on startup if it doesn't exist"""
+    from backend.database.build_db import DatabaseBuilder
+    
+    db_path = config.SQLITE_DB_PATH
+    
+    if not db_path.exists():
+        print("🔨 Database not found. Building...")
+        try:
+            builder = DatabaseBuilder()
+            builder.build()
+            print("✅ Database built successfully!")
+        except Exception as e:
+            print(f"❌ Failed to build database: {e}")
+    else:
+        print(f"✅ Database found at {db_path}")
+
 app.mount("/downloads", StaticFiles(directory=str(REPORTS_DIR)), name="downloads")
 
 app.include_router(router, prefix="/api/v1")
