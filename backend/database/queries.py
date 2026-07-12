@@ -29,16 +29,19 @@ RED_FLAG_SYMPTOMS = [
 SYMPTOM_SYNONYMS = {
     "sore throat": ["throat pain", "painful throat", "pharyngeal pain", "scratchy throat", "raw throat", "throat irritation"],
     "headache": ["head pain", "migraine", "head pressure", "tension headache", "throbbing head"],
-    "fever": ["high temperature", "pyrexia", "high fever", "low grade fever", "temperature", "feeling hot", "chills"],
+    "fever": ["high temperature", "pyrexia", "high fever", "low grade fever", "temperature", "feeling hot"],
     "cough": ["coughing", "dry cough", "wet cough", "persistent cough", "barking cough", "hacking cough"],
     "chest pain": ["chest tightness", "chest pressure", "chest discomfort", "chest ache", "chest heaviness"],
     "difficulty in swallowing": ["difficulty swallowing", "pain on swallowing", "painful swallowing", "trouble swallowing", "pain when swallowing", "hurts to swallow", "swallowing pain", "painful to swallow", "hard to swallow", "can't swallow", "cannot swallow", "struggling to swallow"],
     "shortness of breath": ["difficulty breathing", "breathing difficulty", "trouble breathing", "hard to breathe", "can't breathe", "breathlessness", "breathless", "out of breath", "gasping"],
     "nausea": ["feeling sick", "queasy", "want to vomit", "vomiting", "sick to stomach", "stomach upset", "nauseous"],
-    "fatigue": ["tired", "exhausted", "low energy", "lack of energy", "feeling tired", "worn out", "drained", "sleepy"],
+    "fatigue": ["tired", "exhausted", "low energy", "lack of energy", "feeling tired", "worn out", "drained", "sleepy", "very tired"],
     "abdominal pain": ["stomach pain", "belly pain", "stomach ache", "tummy pain", "gut pain", "abdominal cramps", "cramping"],
     "dizziness": ["lightheaded", "vertigo", "feeling faint", "woozy", "unsteady", "loss of balance", "spinning"],
     "nasal congestion": ["stuffy nose", "blocked nose", "runny nose", "sinus congestion", "stuffed up", "nose blocked", "sniffles"],
+    "decreased appetite": ["no appetite", "loss of appetite", "appetite loss", "not hungry", "poor appetite", "appetite decreased"],
+    "chills": ["cold", "feeling cold", "shivering", "shivers", "chill", "feeling chilly"],
+    "coryza": ["runny nose", "stuffy nose", "nasal discharge"],
 }
 
 def get_connection():
@@ -47,6 +50,10 @@ def get_connection():
 def normalize_symptom(symptom: str) -> str:
     """Normalize using synonym map first, then AI for unknown symptoms."""
     symptom = symptom.strip().lower()
+    
+    # Handle "cold" specially - could mean the illness or feeling cold
+    if symptom == "cold" or symptom == "feeling cold" or symptom == "i have a cold":
+        return "chills"
     
     for main, synonyms in SYMPTOM_SYNONYMS.items():
         if symptom == main or symptom in synonyms:
