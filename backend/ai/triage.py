@@ -2,8 +2,7 @@ import uuid
 from datetime import datetime
 from typing import List, Dict, Optional, Any
 from backend.models.schemas import (
-    Message, 
-    TriageResult, 
+    Message,
     ConditionMatch, 
     SessionData
 )
@@ -23,6 +22,7 @@ class TriageEngine:
     def __init__(self):
         self.sessions: Dict[str, SessionData] = {}
         self.max_turns = config.MAX_TURNS
+        self._asked_questions = {}  # Track asked questions per session
     
     def create_session(self) -> str:
         session_id = str(uuid.uuid4())
@@ -35,6 +35,7 @@ class TriageEngine:
             turn_count=0,
             is_complete=False
         )
+        self._asked_questions[session_id] = set()  # Track questions for this session
         return session_id
     
     def get_session(self, session_id: str) -> Optional[SessionData]:
@@ -49,12 +50,10 @@ class TriageEngine:
     def delete_session(self, session_id: str):
         if session_id in self.sessions:
             del self.sessions[session_id]
+        if session_id in self._asked_questions:
+            del self._asked_questions[session_id]
     
     def _should_conclude(self, session: SessionData, matches: List, current_top: Optional[str]) -> tuple[bool, str]:
-        """
-        Determine if the triage should conclude based on multiple factors.
-        Returns (should_conclude, reason_string).
-        """
         if not matches:
             return False, ""
         
@@ -91,7 +90,6 @@ class TriageEngine:
         return False, ""
     
     def _build_condition_matches(self, matches: List) -> List[ConditionMatch]:
-        """Build ConditionMatch objects from database query results."""
         if not matches:
             return []
         
@@ -116,27 +114,29 @@ class TriageEngine:
                     medications=detail.get('medications', []),
                     diet=detail.get('diet', []),
                     workouts=detail.get('workouts', []),
-                    # Removed red_flags as it's not stored per-disease in single table
-                    # If needed, you can calculate red flags from symptoms
                     red_flags=[]
                 ))
         
         return condition_matches
     
-    def _generate_smart_follow_up(self, symptoms: List[str], matches: List) -> str:
+    def _generate_smart_follow_up(self, session_id: str, symptoms: List[str], matches: List) -> Optional[str]:
         """
-        Generate a follow-up question using database-driven symptom differentiation.
+        Generate follow-up question. Returns None if should conclude instead.
         """
         if not symptoms or not matches:
-            return "Could you describe your symptoms in more detail? Please mention any pain, discomfort, or changes you're experiencing."
+            return None
+        
+        # Check if we've already asked 3+ questions
+        asked = self._asked_questions.get(session_id, set())
+        if len(asked) >= 3:
+            return None
         
         top_disease_names = [m[0] for m in matches[:3]]
         all_symptoms_db = set(get_all_symptoms())
-        current_symptoms = set(symptoms)
+        current_symptoms = set(s.lower() for s in symptoms)
         
         differentiating_symptoms = []
         
-        # Get symptoms from top matching diseases
         for disease_name in top_disease_names:
             try:
                 disease_details = get_disease_details(disease_name)
@@ -148,7 +148,6 @@ class TriageEngine:
             except Exception:
                 continue
         
-        # Get related symptoms for current symptoms
         for symptom in symptoms[:3]:
             try:
                 related = find_related_symptoms(symptom, limit=5)
@@ -160,41 +159,31 @@ class TriageEngine:
             except Exception:
                 continue
         
-        # Remove duplicates while preserving order
+        # Remove duplicates and already-asked
         seen = set()
         unique_diff = []
         for s in differentiating_symptoms:
-            if s not in seen:
+            if s not in seen and s not in asked:
                 seen.add(s)
                 unique_diff.append(s)
         unique_diff = unique_diff[:5]
         
-        if unique_diff and len(unique_diff) >= 2:
+        if not unique_diff:
+            return None
+        
+        # Track this question
+        question_key = frozenset(unique_diff[:3])
+        if question_key in asked:
+            return None
+        
+        asked.add(question_key)
+        self._asked_questions[session_id] = asked
+        
+        if len(unique_diff) >= 2:
             symptom_options = unique_diff[:3]
             return f"To help narrow things down, are you also experiencing any of these: {', '.join(symptom_options)}?"
         
-        if unique_diff:
-            return f"One more thing — are you experiencing {unique_diff[0]}?"
-        
-        # Fallback to LLM if no differentiating symptoms found
-        try:
-            condition_dicts = []
-            disease_details_batch = get_diseases_batch(top_disease_names)
-            for match in matches[:3]:
-                name, count, pct = match
-                detail = next((d for d in disease_details_batch if d['name'] == name), None)
-                condition_dicts.append({
-                    'name': name,
-                    'match_percentage': float(pct)
-                })
-            
-            llm_question = qwen_client.generate_follow_up_sync(symptoms, condition_dicts)
-            if llm_question and len(llm_question.strip()) > 10:
-                return llm_question.strip()
-        except Exception:
-            pass
-        
-        return "Could you tell me more about your symptoms? Any other changes you've noticed?"
+        return f"One more thing — are you experiencing {unique_diff[0]}?"
     
     async def process_message(
         self, 
@@ -218,6 +207,7 @@ class TriageEngine:
                 is_complete=False
             )
             self.sessions[session_id] = session
+            self._asked_questions[session_id] = set()
             
             all_symptoms = []
             for msg in conversation_history:
@@ -245,11 +235,8 @@ class TriageEngine:
             session.extracted_symptoms = list(set(session.extracted_symptoms))
         
         all_symptoms = session.extracted_symptoms
-        
         matches = find_diseases_by_symptoms(all_symptoms, limit=10)
-        
         red_flags = check_red_flags(all_symptoms)
-        
         condition_matches = self._build_condition_matches(matches)
         
         if red_flags:
@@ -264,7 +251,6 @@ class TriageEngine:
             
             if condition_matches:
                 top_list = "\n".join([f"- {c.name} ({c.match_percentage}% match)" for c in condition_matches[:3]])
-                
                 should_conclude, reason = self._should_conclude(session, matches, condition_matches[0].name if condition_matches else None)
                 
                 if should_conclude:
@@ -281,7 +267,9 @@ class TriageEngine:
                         "max_turns_reached": False
                     }
                 else:
-                    follow_up = self._generate_smart_follow_up(all_symptoms, matches)
+                    follow_up = self._generate_smart_follow_up(session_id, all_symptoms, matches)
+                    if follow_up is None:
+                        return self._build_conclusion_response(session_id, session)
                     return {
                         "session_id": session_id,
                         "message": f"{warning_message}\n\nBased on your symptoms, I'm considering:\n{top_list}\n\n{follow_up}",
@@ -311,10 +299,15 @@ class TriageEngine:
         
         if condition_matches:
             top_list = "\n".join([f"- {c.name} ({c.match_percentage}% match)" for c in condition_matches[:3]])
-            follow_up = self._generate_smart_follow_up(all_symptoms, matches)
+            follow_up = self._generate_smart_follow_up(session_id, all_symptoms, matches)
+            
+            # If no more questions, conclude
+            if follow_up is None:
+                return self._build_conclusion_response(session_id, session)
+            
             message_text = f"Based on your symptoms, I'm considering these conditions:\n{top_list}\n\n{follow_up}"
         else:
-            follow_up = "Could you describe your symptoms in more detail? Please mention any pain, discomfort, or changes you're experiencing."
+            follow_up = "Could you describe your symptoms in more detail?"
             message_text = follow_up
         
         self.update_session(session_id, is_complete=False)
@@ -331,7 +324,6 @@ class TriageEngine:
         }
     
     def _build_conclusion_response(self, session_id: str, session: SessionData, force: bool = False) -> Dict[str, Any]:
-        """Build the final conclusion response."""
         all_symptoms = session.extracted_symptoms
         matches = find_diseases_by_symptoms(all_symptoms, limit=5)
         condition_matches = self._build_condition_matches(matches)
@@ -342,10 +334,7 @@ class TriageEngine:
         
         if condition_matches:
             top = condition_matches[0]
-            if force:
-                prefix = "I've gathered enough information. "
-            else:
-                prefix = ""
+            prefix = "I've gathered enough information. " if force else ""
             
             return {
                 "session_id": session_id,
@@ -360,7 +349,7 @@ class TriageEngine:
         else:
             return {
                 "session_id": session_id,
-                "message": "I wasn't able to identify a specific condition based on the symptoms provided. I recommend consulting a healthcare provider for a proper evaluation. Would you like to generate a report with what we've discussed?",
+                "message": "I wasn't able to identify a specific condition. I recommend consulting a healthcare provider. Would you like to generate a report?",
                 "conditions": [],
                 "follow_up_question": None,
                 "red_flags": red_flags,
@@ -376,7 +365,6 @@ class TriageEngine:
         
         all_symptoms = session.extracted_symptoms
         matches = find_diseases_by_symptoms(all_symptoms, limit=5)
-        
         condition_matches = self._build_condition_matches(matches)
         red_flags = check_red_flags(all_symptoms)
         
@@ -387,7 +375,7 @@ class TriageEngine:
             )
         except Exception as e:
             print(f"Summary generation failed: {e}")
-            summary = "No summary available. Please consult a healthcare provider."
+            summary = "No summary available."
         
         return {
             "session_id": session_id,
@@ -411,6 +399,8 @@ class TriageEngine:
         
         for session_id in expired:
             del self.sessions[session_id]
+            if session_id in self._asked_questions:
+                del self._asked_questions[session_id]
         
         return len(expired)
 
