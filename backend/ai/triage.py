@@ -57,6 +57,9 @@ class TriageEngine:
         if not matches:
             return False, ""
         
+        if session.turn_count < 2:
+            return False, ""
+        
         top_name, top_count, top_percentage = matches[0]
         
         if not hasattr(session, '_top_condition_history'):
