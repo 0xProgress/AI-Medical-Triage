@@ -123,20 +123,23 @@ class TriageEngine:
         return condition_matches
     
     def _generate_smart_follow_up(self, session_id: str, symptoms: List[str], matches: List) -> Optional[str]:
-        """
-        Generate follow-up question. Returns None if should conclude instead.
-        """
         if not symptoms or not matches:
             return None
         
-        # Check if we've already asked 3+ questions
         asked = self._asked_questions.get(session_id, set())
         if len(asked) >= 3:
             return None
         
         top_disease_names = [m[0] for m in matches[:3]]
         all_symptoms_db = set(get_all_symptoms())
-        current_symptoms = set(s.lower() for s in symptoms)
+        
+        # Build complete set of user's symptoms (both raw and normalized)
+        from backend.database.queries import normalize_symptom
+        current_symptoms = set()
+        for s in symptoms:
+            s_lower = s.lower().strip()
+            current_symptoms.add(s_lower)
+            current_symptoms.add(normalize_symptom(s_lower))
         
         differentiating_symptoms = []
         
@@ -146,7 +149,7 @@ class TriageEngine:
                 if disease_details and disease_details.get('symptoms'):
                     for ds in disease_details['symptoms']:
                         ds_lower = ds.strip().lower()
-                        if ds_lower and ds_lower not in current_symptoms and ds_lower in all_symptoms_db:
+                        if ds_lower not in current_symptoms and ds_lower in all_symptoms_db:
                             differentiating_symptoms.append(ds_lower)
             except Exception:
                 continue
@@ -157,7 +160,7 @@ class TriageEngine:
                 for item in related:
                     if isinstance(item, (tuple, list)) and len(item) >= 1:
                         rel_name = str(item[0]).strip().lower()
-                        if rel_name and rel_name not in current_symptoms and rel_name not in differentiating_symptoms:
+                        if rel_name not in current_symptoms and rel_name not in differentiating_symptoms:
                             differentiating_symptoms.append(rel_name)
             except Exception:
                 continue
@@ -166,7 +169,7 @@ class TriageEngine:
         seen = set()
         unique_diff = []
         for s in differentiating_symptoms:
-            if s not in seen and s not in asked:
+            if s not in seen and s not in asked and s not in current_symptoms:
                 seen.add(s)
                 unique_diff.append(s)
         unique_diff = unique_diff[:5]
@@ -174,7 +177,6 @@ class TriageEngine:
         if not unique_diff:
             return None
         
-        # Track this question
         question_key = frozenset(unique_diff[:3])
         if question_key in asked:
             return None
